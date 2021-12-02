@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using SchoolServiceSystem.Data;
 using SchoolServiceSystem.Filters;
+using SchoolServiceSystem.Services.ScoolService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,6 +51,11 @@ namespace SchoolServiceSystem
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SchoolServiceSystem", Version = "v1" });
             });
+
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            services.AddScoped<SchoolService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
