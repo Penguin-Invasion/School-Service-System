@@ -2,11 +2,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using SchoolServiceSystem.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +30,18 @@ namespace SchoolServiceSystem
         {
 
             services.AddControllers();
+
+            var dbConnectionString = Configuration.GetConnectionString("dbConnectionString");
+            services.AddDbContextPool<DataContext>(options =>
+                options.UseMySql(
+                    dbConnectionString,
+                    ServerVersion.AutoDetect(dbConnectionString)
+                )
+                .EnableSensitiveDataLogging() // Do not use in prod
+                .EnableDetailedErrors() // Do not use in prod
+            );
+
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SchoolServiceSystem", Version = "v1" });
