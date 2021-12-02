@@ -1,3 +1,4 @@
+using AutoMapper.EquivalencyExpression;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -11,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using SchoolServiceSystem.Data;
 using SchoolServiceSystem.Filters;
+using SchoolServiceSystem.Services;
 using SchoolServiceSystem.Services.ScoolService;
 using System;
 using System.Collections.Generic;
@@ -53,9 +55,15 @@ namespace SchoolServiceSystem
             });
 
 
+            services.AddAutoMapper(opt =>
+            {
+                opt.AddCollectionMappers();
+            }, typeof(Startup).Assembly);
+
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddScoped<SchoolService>();
+            services.AddScoped<UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
