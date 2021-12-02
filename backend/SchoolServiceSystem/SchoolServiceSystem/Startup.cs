@@ -29,7 +29,9 @@ namespace SchoolServiceSystem
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers();
+            services.AddControllers(options => options.Filters.Add<ExceptionHandlingFilter>()).AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
 
             var dbConnectionString = Configuration.GetConnectionString("dbConnectionString");
             services.AddDbContextPool<DataContext>(options =>
