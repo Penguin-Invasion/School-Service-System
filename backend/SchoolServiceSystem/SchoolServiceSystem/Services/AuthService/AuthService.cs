@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using SchoolServiceSystem.Data;
+using SchoolServiceSystem.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,11 @@ namespace SchoolServiceSystem.Services.AuthService
         }
 
 
-
+        public async Task<User> Login(User loginUser)
+        {
+            User user = await _userService.Find(loginUser.Email, loginUser.Password);
+            return user;
+        }
 
     }
 }

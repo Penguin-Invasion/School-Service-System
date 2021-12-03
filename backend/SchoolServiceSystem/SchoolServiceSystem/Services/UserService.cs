@@ -29,6 +29,30 @@ namespace SchoolServiceSystem.Services
         {
             return await Find(ID, (int)Role.Manager);
         }
+        public async Task<User> Find(string Email, string Pass)
+        {
+            User user = null;
+            try
+            {
+                user = await _context.Users
+                    .SingleOrDefaultAsync(u => (u.Email.Equals(Email) && u.Password.Equals(Pass)));
+                if (user == null)
+                {
+                    throw NotFoundException("User could not be found.");
+                }
+                return user;
+            }
+            catch (Exception)
+            {
+
+                throw NotFoundException("User could not be found.");
+            }
+        }
+
+        private Exception NotFoundException(string v)
+        {
+            throw new NotImplementedException();
+        }
 
         public async Task<User> Find(int ID, int? RoleID)
         {
