@@ -47,8 +47,9 @@ const UserHeader = () => {
               </p>
               <Button
                 color="info"
-                href="#pablo"
-                onClick={(e) => e.preventDefault()}
+                href="#editProfile"
+                //onClick={(e) => e.preventDefault()}
+                to="/editProfile"
               >
                 Edit profile
               </Button>
