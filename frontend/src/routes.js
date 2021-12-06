@@ -39,9 +39,9 @@ var routes = [
     layout: "/auth",
   },
   {
-    path: "/deneme",
+    path: "/edit-profile",
     show: false,
-    name: "Deneme",
+    name: "Edit Profile",
     icon: "ni ni-key-25 text-info",
     component: EditProfile,
     layout: "/admin",

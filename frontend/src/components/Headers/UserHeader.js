@@ -33,7 +33,7 @@ const UserHeader = () => {
               <Link
                  color="white"
                 //onClick={(e) => e.preventDefault()}
-                to="/admin/deneme"
+                to="/admin/edit-profile"
               >
                 Edit profile
               </Link>
