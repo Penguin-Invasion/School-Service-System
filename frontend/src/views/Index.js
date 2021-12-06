@@ -1,20 +1,5 @@
-/*!
+import { Link } from "react-router-dom";
 
-=========================================================
-* Argon Dashboard React - v1.2.1
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-dashboard-react
-* Copyright 2021 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import { useState } from "react";
 // node.js library that concatenates classes (strings)
 import classnames from "classnames";
@@ -75,13 +60,15 @@ const Index = (props) => {
                     <h3 className="mb-0">Service Info</h3>
                   </div>
                   <div className="col text-right">
-                    <Button
-                      color="primary"
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
-                      size="sm"
+                  <Button
+                        >
+                        
+                    <Link
+                        color="blue"
+                        to="/admin/tables"
                     >
-                      See all
+                        See all
+                    </Link>
                     </Button>
                   </div>
                 </Row>
