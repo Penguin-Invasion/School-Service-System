@@ -11,6 +11,8 @@ import {
   InputGroupText,
   Input,
   InputGroup,
+  NavItem,
+  NavLink,
   Navbar,
   Nav,
   Container,
@@ -29,6 +31,22 @@ const AdminNavbar = (props) => {
             {props.brandText}
           </Link>
           <Nav className="align-items-center d-none d-md-flex" navbar>
+          <NavItem>
+                <NavLink className="nav-link-icon" to="/auth/login" tag={Link}>
+                  <i className="ni ni-key-25" />
+                  <span className="nav-link-inner--text">Login</span>
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink
+                  className="nav-link-icon"
+                  to="/admin/user-profile"
+                  tag={Link}
+                >
+                  <i className="ni ni-single-02" />
+                  <span className="nav-link-inner--text">Profile</span>
+                </NavLink>
+              </NavItem>
             <UncontrolledDropdown nav>
               <DropdownToggle to="/admin/user-profile" tag={Link} className="pr-0" nav>
                 <Media className="align-items-center">
