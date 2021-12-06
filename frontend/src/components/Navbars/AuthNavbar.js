@@ -58,17 +58,17 @@ const AdminNavbar = () => {
                   <span className="nav-link-inner--text">Dashboard</span>
                 </NavLink>
               </NavItem>
+              
               <NavItem>
                 <NavLink
                   className="nav-link-icon"
-                  to="/auth/register"
+                  to="/admin/user-profile"
                   tag={Link}
                 >
-                  <i className="ni ni-circle-08" />
-                  <span className="nav-link-inner--text">Register</span>
+                  <i className="ni ni-single-02" />
+                  <span className="nav-link-inner--text">Profile</span>
                 </NavLink>
               </NavItem>
-              
             </Nav>
           </UncontrolledCollapse>
         </Container>
