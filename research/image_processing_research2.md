@@ -1,0 +1,2 @@
+Image Processing Research
+Firstly we need to have a camera where the services enter and exit. Then we will use OpenCV library for image processing. After taking license plates, we are going to do some operations like contrast expansion on them to have a clear, detectable anc classifiable images.
