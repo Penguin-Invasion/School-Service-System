@@ -18,6 +18,9 @@ import {
   Col,
 } from "reactstrap";
 
+// service info
+import ServiceBody from "components/ServiceCard/ServiceBody";
+
 // core components
 import {
   chartOptions,
@@ -72,19 +75,11 @@ const Index = (props) => {
                     <th scope="col">Service Name</th>
                     <th scope="col">Entrance Time</th>
                     <th scope="col">Exit Time</th>
-                    <th scope="col">Late Time</th>
+                    <th scope="col">Difference in Minutes</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">/argon/</th>
-                    <td>4,569</td>
-                    <td>340</td>
-                    <td>
-                      <i className="fas fa-arrow-up text-success mr-3" /> 46,53%
-                    </td>
-                  </tr>
-                </tbody>
+                <ServiceBody name={"04-ABC-123"} entrance={"12:45"} exit={"13:15"} diff={"30m"} />
+                
               </Table>
             </Card>
           </Col>
