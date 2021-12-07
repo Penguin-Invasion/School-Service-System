@@ -50,7 +50,7 @@ const Admin = (props) => {
           imgAlt: "...",
         }}
       />
-      <div className="main-content" ref={mainContent}>
+      <div className="main-content penguin-align" ref={mainContent}>
         <AdminNavbar
           {...props}
           brandText={getBrandText(props.location.pathname)}

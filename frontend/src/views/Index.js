@@ -69,18 +69,35 @@ const Index = (props) => {
                   </div>
                 </Row>
               </CardHeader>
-              <Table className="align-items-center table-flush" responsive>
+              <div>
+              <Table className="align-items-center table-flush penguin-table-head" responsive>
                 <thead className="thead-light">
                   <tr>
                     <th scope="col">Service Name</th>
                     <th scope="col">Entrance Time</th>
                     <th scope="col">Exit Time</th>
-                    <th scope="col">Difference in Minutes</th>
+                    <th scope="col">Last Updated</th>
                   </tr>
                 </thead>
-                <ServiceBody name={"04-ABC-123"} entrance={"12:45"} exit={"13:15"} diff={"30m"} />
-                
+                </Table>
+              </div>
+
+            <div className="penguin-table-body">
+                <Table className="" responsive>
+                    <ServiceBody name={"04-ABC-123"} entrance={"12:45"} exit={"13:15"} diff={"30m"} />
+                    <ServiceBody name={"04-ABC-123"} entrance={"12:45"} exit={"13:15"} diff={"30m"} />
+                    <ServiceBody name={"04-ABC-123"} entrance={"12:45"} exit={"13:15"} diff={"30m"} />
+                    <ServiceBody name={"04-ABC-123"} entrance={"12:45"} exit={"13:15"} diff={"30m"} />
+                    <ServiceBody name={"04-ABC-123"} entrance={"12:45"} exit={"13:15"} diff={"30m"} />
+                    <ServiceBody name={"04-ABC-123"} entrance={"12:45"} exit={"13:15"} diff={"30m"} />
+                    <ServiceBody name={"04-ABC-123"} entrance={"12:45"} exit={"13:15"} diff={"30m"} />
+                    <ServiceBody name={"04-ABC-123"} entrance={"12:45"} exit={"13:15"} diff={"30m"} />
+                    <ServiceBody name={"04-ABC-123"} entrance={"12:45"} exit={"13:15"} diff={"30m"} />
+                    <ServiceBody name={"04-ABC-123"} entrance={"12:45"} exit={"13:15"} diff={"30m"} />
+                    <ServiceBody name={"04-ABC-123"} entrance={"12:45"} exit={"13:15"} diff={"30m"} />
+                    <ServiceBody name={"04-ABC-123"} entrance={"12:45"} exit={"13:15"} diff={"30m"} />  
               </Table>
+              </div>
             </Card>
           </Col>
         </Row>
