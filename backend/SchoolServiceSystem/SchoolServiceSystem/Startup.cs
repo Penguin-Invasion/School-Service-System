@@ -16,7 +16,7 @@ using SchoolServiceSystem.Data;
 using SchoolServiceSystem.Filters;
 using SchoolServiceSystem.Services;
 using SchoolServiceSystem.Services.AuthService;
-using SchoolServiceSystem.Services.ScoolService;
+using SchoolServiceSystem.Services.SchoolService;
 using System;
 using System.Collections.Generic;
 using System.Linq;

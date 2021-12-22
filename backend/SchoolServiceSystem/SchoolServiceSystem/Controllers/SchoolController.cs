@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using SchoolServiceSystem.DTOs.School;
 using SchoolServiceSystem.Filters;
 using SchoolServiceSystem.Models;
-using SchoolServiceSystem.Services.ScoolService;
+using SchoolServiceSystem.Services.SchoolService;
 using SchoolServiceSystem.Utils;
 using System;
 using System.Collections.Generic;
