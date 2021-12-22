@@ -10,7 +10,7 @@ namespace SchoolServiceSystem.Models
         public int ID { get; set; }
         public string Name { get; set; }
         public string SecretKey { get; set; }
-        public List<User> Managers { get; set; }
+        public ICollection<User> Users { get; set; }
         public List<Service> Services { get; set; }
 
     }

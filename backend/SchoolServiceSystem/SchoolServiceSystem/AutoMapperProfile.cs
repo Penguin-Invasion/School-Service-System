@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using SchoolServiceSystem.DTOs.Auth;
 using SchoolServiceSystem.DTOs.School;
+using SchoolServiceSystem.DTOs.User;
 using SchoolServiceSystem.Models;
 using System;
 using System.Collections.Generic;
@@ -16,6 +18,9 @@ namespace SchoolServiceSystem
             CreateMap<UpdateSchoolDTO, School>();
             CreateMap<School, GetSchoolDTO>();
 
+            CreateMap<LoginDTO, User>();
+            CreateMap<User, GetUserWithTokenDTO>();
+            CreateMap<User, GetUserDTO>();
         }
     }
 }

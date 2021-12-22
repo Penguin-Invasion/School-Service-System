@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SchoolServiceSystem.Utils;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -21,8 +22,12 @@ namespace SchoolServiceSystem.Models
         public string Email { get; set; }
         public string Password { get; set; }
 
+        public IEnumerable<School> Schools { get; set; }
+
+        public Bus Bus;
+
         //Admin,Manager,Driver
-        public int Role { get; set; }
+        public Roles Role { get; set; }
 
     }
 }
