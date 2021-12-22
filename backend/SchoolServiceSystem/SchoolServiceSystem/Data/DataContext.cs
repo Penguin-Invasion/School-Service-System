@@ -19,6 +19,7 @@ namespace SchoolServiceSystem.Data
         public DbSet<User> Users { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //modelBuilder.Entity<User>().HasMany<School>(u => u.Schools);
             /*
             modelBuilder.Entity<Bus>(entity =>
             {

@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SchoolServiceSystem.DTOs.School;
+using SchoolServiceSystem.Filters;
 using SchoolServiceSystem.Models;
 using SchoolServiceSystem.Services.ScoolService;
 using SchoolServiceSystem.Utils;
@@ -12,7 +14,9 @@ using System.Threading.Tasks;
 
 namespace SchoolServiceSystem.Controllers
 {
+
     [Route("api/[controller]")]
+    [Authorize(Roles = "Admin")]
     [ApiController]
     public class SchoolController : ControllerBase
     {
@@ -24,6 +28,7 @@ namespace SchoolServiceSystem.Controllers
             _mapper = mapper;
             _schoolService = schoolService;
         }
+
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<GetSchoolDTO>>> GetAll()

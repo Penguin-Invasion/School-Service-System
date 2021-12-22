@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using SchoolServiceSystem.Data;
 using SchoolServiceSystem.Exceptions;
@@ -7,27 +8,31 @@ using SchoolServiceSystem.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace SchoolServiceSystem.Services
 {
     public class UserService
     {
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly DataContext _context;
         private readonly IMapper _mapper;
 
-        public UserService(DataContext context, IMapper mapper)
+        public UserService(DataContext context, IMapper mapper, IHttpContextAccessor httpContextAccessor)
         {
+            _httpContextAccessor = httpContextAccessor;
             _context = context;
             _mapper = mapper;
         }
+
         public async Task<User> Find(int ID)
         {
             return await Find(ID, null);
         }
         public async Task<User> FindManager(int ID)
         {
-            return await Find(ID, (int)Role.Manager);
+            return await Find(ID, (int)Roles.Manager);
         }
         public async Task<User> Find(string Email, string Pass)
         {
@@ -38,21 +43,17 @@ namespace SchoolServiceSystem.Services
                     .SingleOrDefaultAsync(u => (u.Email.Equals(Email) && u.Password.Equals(Pass)));
                 if (user == null)
                 {
-                    throw NotFoundException("User could not be found.");
+                    throw new NotFoundException("User could not be found.");
                 }
                 return user;
             }
             catch (Exception)
             {
 
-                throw NotFoundException("User could not be found.");
+                throw new NotFoundException("User could not be found.");
             }
         }
 
-        private Exception NotFoundException(string v)
-        {
-            throw new NotImplementedException();
-        }
 
         public async Task<User> Find(int ID, int? RoleID)
         {
@@ -80,6 +81,16 @@ namespace SchoolServiceSystem.Services
                 throw new NotFoundException("User couldn't be found.");
             }
             return user;
+        }
+
+        public async Task<User> GetMyInfo()
+        {
+            return await Find(GetCurrentUserId());
+        }
+
+        public int GetCurrentUserId()
+        {
+            return int.Parse(_httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
         }
     }
 }

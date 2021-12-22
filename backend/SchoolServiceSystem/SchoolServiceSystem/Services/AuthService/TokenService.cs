@@ -7,13 +7,22 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
 namespace SchoolServiceSystem.Services.AuthService
 {
     public class TokenService
     {
-        public static string CreateToken(User user, List<Claim> claims, string secretKey)
+        private readonly IConfiguration _configuration;
+        public TokenService(IConfiguration configuration)
         {
+            _configuration = configuration;
+        }
+
+
+        public string CreateToken(User user, List<Claim> claims)
+        {
+            string secretKey = _configuration.GetSection("AppSecrets:SecretKey").Value;
             SymmetricSecurityKey key = new SymmetricSecurityKey(
                 Encoding.UTF8.GetBytes(secretKey)
             );

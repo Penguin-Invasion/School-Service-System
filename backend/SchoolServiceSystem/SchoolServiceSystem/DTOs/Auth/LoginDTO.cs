@@ -9,7 +9,7 @@ namespace SchoolServiceSystem.DTOs.Auth
     public class LoginDTO
     {
         [Required]
-        [EmailAddress]
+        //[EmailAddress]
         public string Email { get; set; }
 
         [Required]

@@ -78,7 +78,7 @@ namespace SchoolServiceSystem.Services.ScoolService
             School school = await Find(ID, true);
             User manager = await _userService.FindManager(managerID);
 
-            school.Managers.Add(manager);
+            school.Users.Add(manager);
             int result = await _context.SaveChangesAsync();
             if (result < 1)
             {
@@ -93,12 +93,12 @@ namespace SchoolServiceSystem.Services.ScoolService
         {
             School school = await Find(ID, true);
 
-            User manager = school.Managers.SingleOrDefault(user => user.ID.Equals(managerID));
+            User manager = school.Users.SingleOrDefault(user => user.ID.Equals(managerID));
             if (manager == null)
             {
                 throw new NotDeletedException("Manager couldn't be deleted.");
             }
-            school.Managers.Remove(manager);
+            school.Users.Remove(manager);
             int result = await _context.SaveChangesAsync();
             if (result < 1)
             {
@@ -115,7 +115,7 @@ namespace SchoolServiceSystem.Services.ScoolService
                 if (manager && services)
                 {
                     school = await _context.Schools
-                        .Include(school => school.Managers)
+                        .Include(school => school.Users)
                         .Include(school => school.Services)
                         .SingleOrDefaultAsync(school => school.ID.Equals(ID));
                 }
@@ -126,7 +126,7 @@ namespace SchoolServiceSystem.Services.ScoolService
                 else if (manager)
                 {
                     school = await _context.Schools
-                        .Include(school => school.Managers)
+                        .Include(school => school.Users)
                         .SingleOrDefaultAsync(school => school.ID.Equals(ID));
                 }
                 else
