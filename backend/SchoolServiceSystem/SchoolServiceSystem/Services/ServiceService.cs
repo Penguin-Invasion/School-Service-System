@@ -22,12 +22,12 @@ namespace SchoolServiceSystem.Services
             _mapper = mapper;
             _userService = userService;
         }
-        public async Task<Service> GetAsync(Service service)
+        public async Task<Service> Get(int ID)
         {
             var result = await _context.Services
                         .Include(s => s.School)
                         .Include(s => s.Students)
-                        .SingleOrDefaultAsync(s => s.ID.Equals(service.ID));
+                        .SingleOrDefaultAsync(s => s.ID.Equals(ID));
             if (result == null)
             {
                 throw new NotFoundException();
