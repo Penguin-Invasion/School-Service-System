@@ -87,7 +87,11 @@ namespace SchoolServiceSystem.Services
         {
             var userID = GetCurrentUserId();
             var result = await _context.Users
-                    .SingleOrDefaultAsync(user => user.ID.Equals(userID) && user.SchoolID.Equals(schoolID));
+                    .SingleOrDefaultAsync(user =>
+                        user.ID.Equals(userID)
+                        && user.SchoolID.Equals(schoolID)
+                        && user.Role.Equals(Roles.Manager)
+                    );
             if (result == null)
             {
                 return false;

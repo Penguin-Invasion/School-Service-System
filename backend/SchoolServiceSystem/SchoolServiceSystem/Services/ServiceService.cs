@@ -34,6 +34,7 @@ namespace SchoolServiceSystem.Services
             }
             return result;
         }
+
         public async Task<IEnumerable<Service>> GetAll(Service service)
         {
             var results = await _context.Services
@@ -46,6 +47,7 @@ namespace SchoolServiceSystem.Services
             }
             return results;
         }
+
         public async Task<Service> Add(Service service)
         {
             await _context.Services.AddAsync(service);
@@ -58,6 +60,7 @@ namespace SchoolServiceSystem.Services
 
             return service;
         }
+
         public async Task<Service> Update(int ID, Service updateService)
         {
             var service = _context.Services
@@ -70,15 +73,11 @@ namespace SchoolServiceSystem.Services
             }
             return service;
         }
-        public async Task<bool> Delete(int ID)
-        {
 
-            var result = _context.Services.SingleOrDefault(s => s.ID.Equals(ID));
-            if (result == null)
-            {
-                throw new NotFoundException();
-            }
-            _context.Services.Remove(result);
+
+        public async Task<bool> Delete(Service deleteService)
+        {
+            _context.Services.Remove(deleteService);
             int check = await _context.SaveChangesAsync();
             if (check != 1)
             {

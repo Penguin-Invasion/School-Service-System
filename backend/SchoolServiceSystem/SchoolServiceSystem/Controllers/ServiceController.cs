@@ -34,16 +34,9 @@ namespace SchoolServiceSystem.Controllers
         [Route("{ID}")]
         public async Task<ActionResult<GetServiceDTO>> Get(int ID)
         {
-            var data = await _serviceService.Get(ID);
-            if (_userService.GetCurrentUserRole() == Roles.Manager)
-            {
-                var auth = _userService.checkAuthorityManager(data);
-                if (auth == false)
-                {
-                    throw new UnauthorizedAccessException();
-                }
 
-            }
+            var data = await _serviceService.Get(ID);
+            checkAuthManager(data.SchoolID);
 
             var response = _mapper.Map<GetServiceDTO>(data);
             return response;
@@ -52,10 +45,65 @@ namespace SchoolServiceSystem.Controllers
         [HttpPost]
         public async Task<ActionResult<GetServiceDTO>> Add(CreateServiceDTO createServiceDTO)
         {
+            checkAuthManager(createServiceDTO.SchoolID);
+
             Service createService = _mapper.Map<Service>(createServiceDTO);
             Service service = await _serviceService.Create(createService);
             GetServiceDTO getServiceDTO = _mapper.Map<GetServiceDTO>(service);
             return getServiceDTO;
         }
+
+        [HttpPatch]
+        [Route("{ID}")]
+        public async Task<ActionResult<ServiceResponse<GetServiceDTO>>> Update(int ID, UpdateServiceDTO updateServiceDTO)
+        {
+            Service Service = _mapper.Map<Service>(updateServiceDTO);
+            Service = await _ServiceService.Update(ID, Service);
+            GetServiceDTO data = _mapper.Map<GetServiceDTO>(Service);
+            ServiceResponse<GetServiceDTO> response = new ServiceResponse<GetServiceDTO>()
+            {
+                Data = data,
+                Success = true
+
+            };
+
+            return response;
+        }
+        [HttpDelete]
+        [Route("{ID}")]
+        public async Task<ServiceResponse<Object>> Delete(int ID)
+        {
+            var data = await _serviceService.Get(ID);
+
+            checkAuthManager(data.SchoolID);
+
+            bool result = await _serviceService.Delete(data);
+            var response = new ServiceResponse<Object>() { Success = result };
+            return response;
+        }
+
+
+
+        private bool checkAuthManager(int SchoolID)
+        {
+            bool auth = false;
+            if (_userService.GetCurrentUserRole() == Roles.Admin)
+            {
+                auth = true;
+            }
+            else if (_userService.GetCurrentUserRole() == Roles.Manager)
+            {
+                auth = _userService.checkAuthorityManager(SchoolID);
+
+                if (auth == false)
+                {
+                    throw new UnauthorizedAccessException();
+                }
+            }
+
+            return auth;
+
+        }
+
     }
 }
