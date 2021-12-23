@@ -83,6 +83,23 @@ namespace SchoolServiceSystem.Services
             return user;
         }
 
+        public async Task<bool> checkAuthorityManager(int schoolID)
+        {
+            var userID = GetCurrentUserId();
+            var result = await _context.Users
+                    .SingleOrDefaultAsync(user =>
+                        user.ID.Equals(userID)
+                        && user.SchoolID.Equals(schoolID)
+                        && user.Role.Equals(Roles.Manager)
+                    );
+            if (result == null)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         public async Task<User> GetMyInfo()
         {
             return await Find(GetCurrentUserId());
@@ -91,6 +108,11 @@ namespace SchoolServiceSystem.Services
         public int GetCurrentUserId()
         {
             return int.Parse(_httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
+        }
+        public Roles GetCurrentUserRole()
+        {
+            int roleID = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Role);
+            return (Roles)roleID;
         }
     }
 }
