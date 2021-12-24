@@ -1,4 +1,6 @@
-﻿using SchoolServiceSystem.DTOs.Student;
+﻿using SchoolServiceSystem.DTOs.Bus;
+using SchoolServiceSystem.DTOs.School;
+using SchoolServiceSystem.DTOs.Student;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +10,9 @@ namespace SchoolServiceSystem.DTOs.Service
 {
     public class UpdateServiceDTO
     {
-        public int BusID { get; set; }
-        public int SchoolID { get; set; }
+        public string Name { get; set; }
+        public int? BusID { get; set; }
+        public int? SchoolID { get; set; }
 
     }
 }

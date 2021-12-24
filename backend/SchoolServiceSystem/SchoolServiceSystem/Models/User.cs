@@ -22,7 +22,7 @@ namespace SchoolServiceSystem.Models
         public string Email { get; set; }
         public string Password { get; set; }
 
-        public School Schools { get; set; }
+        public School School { get; set; }
 
         public Bus Bus;
 

@@ -37,21 +37,14 @@ namespace SchoolServiceSystem.Services
         public async Task<User> Find(string Email, string Pass)
         {
             User user = null;
-            try
-            {
-                user = await _context.Users
+            user = await _context.Users
                     .SingleOrDefaultAsync(u => (u.Email.Equals(Email) && u.Password.Equals(Pass)));
-                if (user == null)
-                {
-                    throw new NotFoundException("User could not be found.");
-                }
-                return user;
-            }
-            catch (Exception)
+            Console.WriteLine(user.ToString());
+            if (user == null)
             {
-
-                throw new NotFoundException("User could not be found.");
+                throw new NotFoundException("User could not be found.1");
             }
+            return user;
         }
 
 
@@ -86,12 +79,14 @@ namespace SchoolServiceSystem.Services
         public async Task<bool> checkAuthorityManager(int schoolID)
         {
             var userID = GetCurrentUserId();
-            var result = await _context.Users
+            Console.WriteLine("userID" + userID.ToString() + " SchoolID:" + schoolID.ToString());
+            var result = await _context.Users.Include(u => u.School)
                     .SingleOrDefaultAsync(user =>
                         user.ID.Equals(userID)
-                        && user.SchoolID.Equals(schoolID)
+                        && user.School.ID.Equals(schoolID)
                         && user.Role.Equals(Roles.Manager)
                     );
+
             if (result == null)
             {
                 return false;
@@ -111,7 +106,16 @@ namespace SchoolServiceSystem.Services
         }
         public Roles GetCurrentUserRole()
         {
-            int roleID = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Role);
+            string role = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Role);
+            int roleID = 2;
+            if (role.Equals("Admin"))
+            {
+                roleID = 0;
+            }
+            else if (role.Equals("Manager"))
+            {
+                roleID = 1;
+            }
             return (Roles)roleID;
         }
     }

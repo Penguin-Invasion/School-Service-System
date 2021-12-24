@@ -9,8 +9,8 @@ using SchoolServiceSystem.Data;
 namespace SchoolServiceSystem.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20211203210253_CreateDatabase")]
-    partial class CreateDatabase
+    [Migration("20211223202046_AddNameToService")]
+    partial class AddNameToService
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -63,6 +63,9 @@ namespace SchoolServiceSystem.Migrations
 
                     b.Property<int>("BusID")
                         .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext");
 
                     b.Property<int>("SchoolID")
                         .HasColumnType("int");
@@ -122,27 +125,17 @@ namespace SchoolServiceSystem.Migrations
                     b.Property<int>("Role")
                         .HasColumnType("int");
 
+                    b.Property<int?>("SchoolID")
+                        .HasColumnType("int");
+
                     b.Property<string>("SurName")
                         .HasColumnType("longtext");
 
                     b.HasKey("ID");
 
+                    b.HasIndex("SchoolID");
+
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("SchoolUser", b =>
-                {
-                    b.Property<int>("SchoolsID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UsersID")
-                        .HasColumnType("int");
-
-                    b.HasKey("SchoolsID", "UsersID");
-
-                    b.HasIndex("UsersID");
-
-                    b.ToTable("SchoolUser");
                 });
 
             modelBuilder.Entity("SchoolServiceSystem.Models.Bus", b =>
@@ -184,24 +177,20 @@ namespace SchoolServiceSystem.Migrations
                     b.Navigation("Service");
                 });
 
-            modelBuilder.Entity("SchoolUser", b =>
+            modelBuilder.Entity("SchoolServiceSystem.Models.User", b =>
                 {
-                    b.HasOne("SchoolServiceSystem.Models.School", null)
-                        .WithMany()
-                        .HasForeignKey("SchoolsID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("SchoolServiceSystem.Models.School", "School")
+                        .WithMany("Users")
+                        .HasForeignKey("SchoolID");
 
-                    b.HasOne("SchoolServiceSystem.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("UsersID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("School");
                 });
 
             modelBuilder.Entity("SchoolServiceSystem.Models.School", b =>
                 {
                     b.Navigation("Services");
+
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("SchoolServiceSystem.Models.Service", b =>

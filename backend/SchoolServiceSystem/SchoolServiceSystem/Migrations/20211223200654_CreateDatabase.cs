@@ -41,11 +41,18 @@ namespace SchoolServiceSystem.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Password = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    SchoolID = table.Column<int>(type: "int", nullable: true),
                     Role = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Users_Schools_SchoolID",
+                        column: x => x.SchoolID,
+                        principalTable: "Schools",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -65,31 +72,6 @@ namespace SchoolServiceSystem.Migrations
                     table.ForeignKey(
                         name: "FK_Buses_Users_DriverID",
                         column: x => x.DriverID,
-                        principalTable: "Users",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "SchoolUser",
-                columns: table => new
-                {
-                    SchoolsID = table.Column<int>(type: "int", nullable: false),
-                    UsersID = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SchoolUser", x => new { x.SchoolsID, x.UsersID });
-                    table.ForeignKey(
-                        name: "FK_SchoolUser_Schools_SchoolsID",
-                        column: x => x.SchoolsID,
-                        principalTable: "Schools",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_SchoolUser_Users_UsersID",
-                        column: x => x.UsersID,
                         principalTable: "Users",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
@@ -154,11 +136,6 @@ namespace SchoolServiceSystem.Migrations
                 column: "DriverID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SchoolUser_UsersID",
-                table: "SchoolUser",
-                column: "UsersID");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Services_BusID",
                 table: "Services",
                 column: "BusID");
@@ -172,13 +149,15 @@ namespace SchoolServiceSystem.Migrations
                 name: "IX_Students_ServiceID",
                 table: "Students",
                 column: "ServiceID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_SchoolID",
+                table: "Users",
+                column: "SchoolID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "SchoolUser");
-
             migrationBuilder.DropTable(
                 name: "Students");
 
@@ -189,10 +168,10 @@ namespace SchoolServiceSystem.Migrations
                 name: "Buses");
 
             migrationBuilder.DropTable(
-                name: "Schools");
+                name: "Users");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Schools");
         }
     }
 }

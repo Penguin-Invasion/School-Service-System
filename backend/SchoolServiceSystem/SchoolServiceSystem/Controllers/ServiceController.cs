@@ -3,9 +3,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SchoolServiceSystem.DTOs.School;
+using SchoolServiceSystem.DTOs.Service;
 using SchoolServiceSystem.Filters;
 using SchoolServiceSystem.Models;
-using SchoolServiceSystem.Services.ServiceService;
+using SchoolServiceSystem.Services;
 using SchoolServiceSystem.Utils;
 using System;
 using System.Collections.Generic;
@@ -36,7 +37,7 @@ namespace SchoolServiceSystem.Controllers
         {
 
             var data = await _serviceService.Get(ID);
-            checkAuthManager(data.SchoolID);
+            await checkAuthManagerAsync(data.SchoolID);
 
             var response = _mapper.Map<GetServiceDTO>(data);
             return response;
@@ -45,7 +46,7 @@ namespace SchoolServiceSystem.Controllers
         [HttpPost]
         public async Task<ActionResult<GetServiceDTO>> Add(CreateServiceDTO createServiceDTO)
         {
-            checkAuthManager(createServiceDTO.SchoolID);
+            await checkAuthManagerAsync(createServiceDTO.SchoolID);
 
             Service createService = _mapper.Map<Service>(createServiceDTO);
             Service service = await _serviceService.Create(createService);
@@ -58,7 +59,7 @@ namespace SchoolServiceSystem.Controllers
         public async Task<ActionResult<ServiceResponse<GetServiceDTO>>> Update(int ID, UpdateServiceDTO updateServiceDTO)
         {
             Service Service = _mapper.Map<Service>(updateServiceDTO);
-            Service = await _ServiceService.Update(ID, Service);
+            Service = await _serviceService.Update(ID, updateServiceDTO);
             GetServiceDTO data = _mapper.Map<GetServiceDTO>(Service);
             ServiceResponse<GetServiceDTO> response = new ServiceResponse<GetServiceDTO>()
             {
@@ -75,7 +76,7 @@ namespace SchoolServiceSystem.Controllers
         {
             var data = await _serviceService.Get(ID);
 
-            checkAuthManager(data.SchoolID);
+            await checkAuthManagerAsync(data.SchoolID);
 
             bool result = await _serviceService.Delete(data);
             var response = new ServiceResponse<Object>() { Success = result };
@@ -84,7 +85,7 @@ namespace SchoolServiceSystem.Controllers
 
 
 
-        private bool checkAuthManager(int SchoolID)
+        private async Task<bool> checkAuthManagerAsync(int SchoolID)
         {
             bool auth = false;
             if (_userService.GetCurrentUserRole() == Roles.Admin)
@@ -93,8 +94,8 @@ namespace SchoolServiceSystem.Controllers
             }
             else if (_userService.GetCurrentUserRole() == Roles.Manager)
             {
-                auth = _userService.checkAuthorityManager(SchoolID);
-
+                auth = await _userService.checkAuthorityManager(SchoolID);
+                Console.WriteLine(auth);
                 if (auth == false)
                 {
                     throw new UnauthorizedAccessException();

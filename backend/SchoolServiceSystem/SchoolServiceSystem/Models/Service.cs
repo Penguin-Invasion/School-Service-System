@@ -8,6 +8,7 @@ namespace SchoolServiceSystem.Models
     public class Service
     {
         public int ID { get; set; }
+        public string Name { get; set; }
         public int BusID { get; set; }
         public int SchoolID { get; set; }
         public Bus Bus { get; set; }

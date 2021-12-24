@@ -11,8 +11,8 @@ namespace SchoolServiceSystem.DTOs.Service
     public class GetServiceDTO
     {
         public int ID { get; set; }
-        public int BusID { get; set; }
-        public int SchoolID { get; set; }
+
+        public string Name { get; set; }
         public GetBusDTO Bus { get; set; }
         public GetSchoolDTO School { get; set; }
         public List<GetStudentDTO> Students { get; set; }

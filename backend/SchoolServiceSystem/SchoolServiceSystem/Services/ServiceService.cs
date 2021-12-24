@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using SchoolServiceSystem.Data;
+using SchoolServiceSystem.DTOs.Service;
 using SchoolServiceSystem.Exceptions;
 using SchoolServiceSystem.Models;
+using SchoolServiceSystem.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,7 +50,7 @@ namespace SchoolServiceSystem.Services
             return results;
         }
 
-        public async Task<Service> Add(Service service)
+        public async Task<Service> Create(Service service)
         {
             await _context.Services.AddAsync(service);
             int result = await _context.SaveChangesAsync();
@@ -61,12 +63,14 @@ namespace SchoolServiceSystem.Services
             return service;
         }
 
-        public async Task<Service> Update(int ID, Service updateService)
+        public async Task<Service> Update(int ID, UpdateServiceDTO updateService)
         {
             var service = _context.Services
                         .SingleOrDefault(s => s.ID.Equals(ID));
-            _mapper.Map<Service, Service>(updateService, service);
+            Patcher.Patch(service, updateService);
+            _context.Services.Update(service);
             int result = await _context.SaveChangesAsync();
+            Console.WriteLine(result);
             if (result != 1)
             {
                 throw new NotUpdatedException("Service couldn't be updated.");

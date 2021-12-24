@@ -38,7 +38,7 @@ namespace SchoolServiceSystem
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers(options => options.Filters.Add<ExceptionHandlingFilter>()).AddNewtonsoftJson(options =>
+            services.AddControllers(/*options => options.Filters.Add<ExceptionHandlingFilter>()*/).AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
 
@@ -100,6 +100,7 @@ namespace SchoolServiceSystem
             services.AddAutoMapper(opt =>
             {
                 opt.AddCollectionMappers();
+
             }, typeof(Startup).Assembly);
 
 
@@ -109,6 +110,7 @@ namespace SchoolServiceSystem
             services.AddScoped<UserService>();
             services.AddScoped<TokenService>();
             services.AddScoped<AuthService>();
+            services.AddScoped<ServiceService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
