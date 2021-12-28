@@ -1,22 +1,37 @@
 import React from 'react'
 import ServiceBody from './ServiceBody'
-
+import { useState, useEffect } from 'react'
 
 const ServiceBodyContainer = () => {
+    const [serviceBody, setServiceBody] = useState([])
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const result = await fetch('http://localhost:3001/services')
+            const body = await result.json()
+            setServiceBody(body)
+
+            console.log(`body`, body)
+        }
+
+        fetchData()
+    }, [])
+
+    console.log(`serviceBody`, serviceBody)
+
     return (
         <>
-            <ServiceBody name={"04-ABC-123"} entrance={"12:45"} exit={"13:15"} diff={"30m"} />
-            <ServiceBody name={"04-ABC-123"} entrance={"12:45"} exit={"13:15"} diff={"30m"} />
-            <ServiceBody name={"04-ABC-123"} entrance={"12:45"} exit={"13:15"} diff={"30m"} />
-            <ServiceBody name={"04-ABC-123"} entrance={"12:45"} exit={"13:15"} diff={"30m"} />
-            <ServiceBody name={"04-ABC-123"} entrance={"12:45"} exit={"13:15"} diff={"30m"} />
-            <ServiceBody name={"04-ABC-123"} entrance={"12:45"} exit={"13:15"} diff={"30m"} />
-            <ServiceBody name={"04-ABC-123"} entrance={"12:45"} exit={"13:15"} diff={"30m"} />
-            <ServiceBody name={"04-ABC-123"} entrance={"12:45"} exit={"13:15"} diff={"30m"} />
-            <ServiceBody name={"04-ABC-123"} entrance={"12:45"} exit={"13:15"} diff={"30m"} />
-            <ServiceBody name={"04-ABC-123"} entrance={"12:45"} exit={"13:15"} diff={"30m"} />
-            <ServiceBody name={"04-ABC-123"} entrance={"12:45"} exit={"13:15"} diff={"30m"} />
-            <ServiceBody name={"04-ABC-123"} entrance={"12:45"} exit={"13:15"} diff={"30m"} /> 
+        {serviceBody.map(service => {
+            return (
+                <ServiceBody
+                    //key={service.id}
+                    name={service.name}
+                    entrance={service.entrance}
+                    exit={service.exit}
+                    diff={service.diff}
+                />
+            )
+        })}
         </>
     )
 }
