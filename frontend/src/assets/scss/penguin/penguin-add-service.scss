@@ -1,4 +1,17 @@
+.add-driver {
+    background-color: beige;
+}
+
 .add-service {
     background-color: #d3ecf3;
-    left: 50%;
+}
+
+.edit-profile {
+    background-color: hsl(34, 53%, 84%);
+}
+
+.all-buttons {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }

@@ -14,8 +14,23 @@ import {
   } from "reactstrap";
   // core components
   import UserHeader from "components/Headers/UserHeader.js";
+  import { useState, useEffect } from "react";
   
   const Profile = () => {
+    const [user, setUser] = useState([]);
+    const [services, setServices] = useState([]);
+    const [service, setService] = useState([]);
+
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [message, setMessage] = useState('');
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    console.log('name:', name);
+    console.log('message:', message);
+  }
+
     return (
       <>
         <UserHeader />
@@ -24,107 +39,26 @@ import {
           <Row>
             <Col className="order-xl-1" xl="8">
               <Card className="bg-secondary shadow">
-                <CardHeader className="bg-white border-0">
-                  <Row className="align-items-center">
-                    <Col xs="8">
-                      <h3 className="mb-0">Account</h3>
-                    </Col>
-
-                    <Button
-                        >
-                        
-                    <Link
-                        color="blue"
-                        to="/admin/user-profile"
-                    >
-                        Save profile
-                    </Link>
-                    </Button>
-
-                    
-                  </Row>
-                </CardHeader>
-                <CardBody>
-                  <Form>
-                    <h6 className="heading-small text-muted mb-4">
-                      User information
-                    </h6>
-                    <div className="pl-lg-4">
-                      <Row>
-                        <Col lg="6">
-                          <FormGroup>
-                            <label
-                              className="form-control-label"
-                              htmlFor="input-username"
-                            >
-                              Username
-                            </label>
-                            <Input
-                              className="form-control-alternative"
-                              defaultValue="highShool"
-                              id="input-username"
-                              placeholder="highShool"
-                              type="text"
-                            />
-                          </FormGroup>
-                        </Col>
-                        <Col lg="6">
-                          <FormGroup>
-                            <label
-                              className="form-control-label"
-                              htmlFor="input-email"
-                            >
-                              Email address
-                            </label>
-                            <Input
-                              className="form-control-alternative"
-                              id="input-email"
-                              placeholder="highSchoool@hotmail.com"
-                              type="email"
-                            />
-                          </FormGroup>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col lg="6">
-                          <FormGroup>
-                            <label
-                              className="form-control-label"
-                              htmlFor="input-first-name"
-                            >
-                              First name
-                            </label>
-                            <Input
-                              className="form-control-alternative"
-                              defaultValue="Lucky"
-                              id="input-first-name"
-                              placeholder="First name"
-                              type="text"
-                            />
-                          </FormGroup>
-                        </Col>
-                        <Col lg="6">
-                          <FormGroup>
-                            <label
-                              className="form-control-label"
-                              htmlFor="input-last-name"
-                            >
-                              Last name
-                            </label>
-                            <Input
-                              className="form-control-alternative"
-                              defaultValue="Jesse"
-                              id="input-last-name"
-                              placeholder="Last name"
-                              type="text"
-                            />
-                          </FormGroup>
-                        </Col>
-                      </Row>
+                <form onClick={handleSubmit}>
+                    <div>
+                        <label htmlFor="name">Servis Plakasi</label>
+                        <input
+                        id="name"
+                        type="text"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        />
                     </div>
-                   
-                  </Form>
-                </CardBody>
+                    <div>
+                        <label htmlFor="message">Message</label>
+                        <textarea
+                        id="message"
+                        value={message}
+                        onChange={(e) => setMessage(e.target.value)}
+                        />
+                    </div>
+                    <button type="submit">Submit</button>
+                </form>
               </Card>
             </Col>
           </Row>

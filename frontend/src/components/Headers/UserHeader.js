@@ -26,27 +26,35 @@ const UserHeader = () => {
               <p className="text-white mt-0 mb-5">
                 This is your profile page. You can see your profile info and you can edit it. You can also see your image and can change it.
               </p>
-              <Button
+              <div className="all-buttons">
+                <Link
+                    color="white"
+                    //onClick={(e) => e.preventDefault()}
+                    to="/admin/edit-profile"
                 >
-                
-              <Link
-                 color="white"
-                //onClick={(e) => e.preventDefault()}
-                to="/admin/edit-profile"
-              >
-                Edit profile
-              </Link>
-              </Button>
-              <Button className="add-service"
-                >              
-              <Link
-                 color="white"
-                //onClick={(e) => e.preventDefault()}
-                to="/admin/add-service"
-              >
-                Servis Ekle
-              </Link>
-              </Button>
+                <Button className="edit-profile">
+                    Edit profile
+                </Button>
+                </Link>
+                <Link
+                    color="white"
+                    //onClick={(e) => e.preventDefault()}
+                    to="/admin/add-service"
+                >
+                <Button className="add-driver" >              
+                    Sürücü Ekle
+                </Button>
+                </Link>
+                <Link
+                    color="white"
+                    //onClick={(e) => e.preventDefault()}
+                    to="/admin/add-service"
+                >
+                <Button className="add-service">              
+                    Servis Ekle
+                </Button>
+                </Link>
+              </div>
             </Col>
           </Row>
         </Container>
