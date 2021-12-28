@@ -3,6 +3,7 @@ import Profile from "views/examples/Profile.js";
 import Login from "views/examples/Login.js";
 import Tables from "views/examples/Tables.js";
 import EditProfile from "views/examples/editProfile.js";
+import AddService from "views/examples/addService.js";
 
 var routes = [
   {
@@ -24,7 +25,7 @@ var routes = [
   {
     path: "/tables",
     show: true,
-    name: "Tables",
+    name: "Services",
     icon: "ni ni-bullet-list-67 text-red",
     component: Tables,
     layout: "/admin",
@@ -43,6 +44,14 @@ var routes = [
     name: "Edit Profile",
     icon: "ni ni-key-25 text-info",
     component: EditProfile,
+    layout: "/admin",
+  },
+  {
+    path: "/add-service",
+    show: false,
+    name: "Edit Profile",
+    icon: "ni ni-key-25 text-info",
+    component: AddService,
     layout: "/admin",
   },
 
