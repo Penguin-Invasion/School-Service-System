@@ -37,9 +37,8 @@ const UserHeader = () => {
                 Edit profile
               </Link>
               </Button>
-              <Button
-                >
-                
+              <Button className="add-service"
+                >              
               <Link
                  color="white"
                 //onClick={(e) => e.preventDefault()}
