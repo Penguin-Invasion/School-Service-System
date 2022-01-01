@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react'
 const ServiceBodyContainer = () => {
     const [serviceBody, setServiceBody] = useState([])
 
+    // fetch data from the api
     useEffect(() => {
         const fetchData = async () => {
             const result = await fetch('http://localhost:3001/services')
