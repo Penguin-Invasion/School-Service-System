@@ -18,7 +18,9 @@ const App = () => {
             <HashRouter>
                 <Switch>
                     {/* <Route path="/admin" component={AdminLayout} /> */}
-                    <Route path="/auth" component={AuthLayout} />
+                    {/* send props to AuthLayout */}
+                    <Route path="/auth" render={props => <AuthLayout {...props} setToken={setToken} />} />
+                    {/* <Route path="/auth" component={AuthLayout} foo={"bar"} /> */}
                     <Redirect from="/" to="/auth/login" />
                 </Switch>
             </HashRouter>
@@ -30,7 +32,7 @@ const App = () => {
         <HashRouter>
             <Switch>
             <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
-            <Route path="/auth" render={(props) => <AuthLayout {...props} />} />
+            {/* <Route path="/auth" render={(props) => <AuthLayout {...props} />} /> */}
             <Redirect from="/" to="/admin/index" />
             </Switch>
         </HashRouter>

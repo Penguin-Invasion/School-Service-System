@@ -1,15 +1,20 @@
 import React from "react";
-import { useLocation, Route, Switch, Redirect } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 // reactstrap components
 import { Container, Row, Col } from "reactstrap";
+
+import Login from "views/examples/Login.js";
 
 // core components
 import AuthNavbar from "components/Navbars/AuthNavbar.js";
 import AuthFooter from "components/Footers/AuthFooter.js";
 
-import routes from "routes.js";
 
 const Auth = (props) => {
+
+    console.log("props admin: ", props);
+    console.log("token?", props.setToken);
+
   const mainContent = React.useRef(null);
   const location = useLocation();
 
@@ -24,22 +29,6 @@ const Auth = (props) => {
     document.scrollingElement.scrollTop = 0;
     mainContent.current.scrollTop = 0;
   }, [location]);
-
-  const getRoutes = (routes) => {
-    return routes.map((prop, key) => {
-      if (prop.layout === "/auth") {
-        return (
-          <Route
-            path={prop.layout + prop.path}
-            component={prop.component}
-            key={key}
-          />
-        );
-      } else {
-        return null;
-      }
-    });
-  };
 
   return (
     <>
@@ -77,10 +66,11 @@ const Auth = (props) => {
         {/* Page content */}
         <Container className="mt--8 pb-5">
           <Row className="justify-content-center">
-            <Switch>
+            {/* <Switch>
               {getRoutes(routes)}
               <Redirect from="*" to="/auth/login" />
-            </Switch>
+            </Switch> */}
+            <Login  setToken={props.setToken} />
           </Row>
         </Container>
       </div>

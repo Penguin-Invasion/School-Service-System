@@ -1,39 +1,40 @@
 {
   "services": [
     {
-        "id": "1",
-        "name": "04-ABC-123",
-        "entrance": "10:00",
-        "exit": "18:00",
-        "diff": "8:00"
+      "id": "1",
+      "name": "04-ABC-123",
+      "entrance": "10:00",
+      "exit": "18:00",
+      "diff": "8:00"
     },
     {
-        "id": "2",
-        "name": "04-ABC-123",
-        "entrance": "10:00",
-        "exit": "18:00",
-        "diff": "8:00"
+      "id": "2",
+      "name": "04-ABC-123",
+      "entrance": "10:00",
+      "exit": "18:00",
+      "diff": "8:00"
     },
     {
-        "id": "3",
-        "name": "05-ABC-123",
-        "entrance": "10:00",
-        "exit": "18:00",
-        "diff": "8:00"
+      "id": "3",
+      "name": "05-ABC-123",
+      "entrance": "10:00",
+      "exit": "18:00",
+      "diff": "8:00"
     }
   ],
   "schools": [
-     {
-        "name": "ABC School",
-        "address": "123 ABC Street",
-        "city": "ABC City",
-        "state": "ABC State",
-        "zip": "12345",
-        "phone": "123-456-7890",
-        "fax": "123-456-7890"
-     }
-    ]
-    
-
-
+    {
+      "name": "ABC School",
+      "address": "123 ABC Street",
+      "city": "ABC City",
+      "state": "ABC State",
+      "zip": "12345",
+      "phone": "123-456-7890",
+      "fax": "123-456-7890"
+    }
+  ],
+  "login": {
+    "username": "sdfsd",
+    "password": "asahfa"
+  }
 }

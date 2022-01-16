@@ -1,10 +1,10 @@
+import { useState } from "react";
+import PropTypes from 'prop-types';
+
 import {
-  Button,
   Card,
   CardBody,
   FormGroup,
-  Form,
-  Input,
   InputGroupAddon,
   InputGroupText,
   InputGroup,
@@ -12,13 +12,40 @@ import {
   Col,
 } from "reactstrap";
 
-const Login = () => {
+async function loginUser(credentials) {
+    return fetch('http://localhost:3001/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(credentials)
+    })
+      .then(data => data.json())
+}
+
+const Login = ({setToken}) => {
+    console.log("setToken: ", setToken);
+
+    const [username, setUserName] = useState();
+    const [password, setPassword] = useState();
+
+    const handleSubmit = async e => {
+        e.preventDefault();
+        const token = await loginUser({
+          username,
+          password
+        });
+        setToken(token);
+      }
+
+
+
   return (
     <>
       <Col lg="5" md="7">
         <Card className="bg-secondary shadow border-0">
         <CardBody className="px-lg-5 py-lg-5">
-        <form>
+        <form onSubmit={handleSubmit}>
               <FormGroup className="mb-3">
                 <InputGroup className="input-group-alternative">
                   <InputGroupAddon addonType="prepend">
@@ -71,5 +98,9 @@ const Login = () => {
     </>
   );
 };
+
+Login.propTypes = {
+    setToken: PropTypes.func.isRequired
+  };
 
 export default Login;
