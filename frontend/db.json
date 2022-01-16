@@ -20,6 +20,16 @@
       "entrance": "10:00",
       "exit": "18:00",
       "diff": "8:00"
+    },
+    {
+      "id": 0.28693799547106313,
+      "name": "sad",
+      "message": "123"
+    },
+    {
+      "id": 0.21770697636848513,
+      "name": "sado",
+      "message": "1234"
     }
   ],
   "schools": [
@@ -33,18 +43,12 @@
       "fax": "123-456-7890"
     }
   ],
-  "login": [
+  "drivers": [
     {
-        "username": "admin",
-        "password": "123"
-    },
-    {
-        "username": "habil",
-        "password": "kalkan"
-    },
-    {
-        "username": "admin",
-        "password": "321"
+      "id": 0.2162784196542029,
+      "name": "asdfsafa",
+      "message": "1321321321",
+      "driverName": "selaaam"
     }
   ]
 }

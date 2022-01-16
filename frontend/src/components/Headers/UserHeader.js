@@ -2,6 +2,13 @@ import { Link } from "react-router-dom";
 import { Button, Container, Row, Col } from "reactstrap";
 
 const UserHeader = () => {
+
+
+
+
+
+
+
   return (
     <>
       <div
@@ -38,10 +45,9 @@ const UserHeader = () => {
                 </Link>
                 <Link
                     color="white"
-                    //onClick={(e) => e.preventDefault()}
-                    to="/admin/add-service"
+                    to="/admin/add-driver"
                 >
-                <Button className="add-driver" >              
+                <Button className="add-driver" >
                     Sürücü Ekle
                 </Button>
                 </Link>
@@ -50,7 +56,7 @@ const UserHeader = () => {
                     //onClick={(e) => e.preventDefault()}
                     to="/admin/add-service"
                 >
-                <Button className="add-service">              
+                <Button className="add-service">
                     Servis Ekle
                 </Button>
                 </Link>

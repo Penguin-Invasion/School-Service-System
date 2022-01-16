@@ -21,6 +21,7 @@ import {
     const [services, setServices] = useState([]);
     const [service, setService] = useState([]);
 
+    const [driverName, setDriverName] = useState('');
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
@@ -29,15 +30,18 @@ import {
     event.preventDefault();
     console.log('name:', name);
     console.log('message:', message);
+    console.log('driverName:', driverName);
+
     createService({
       "id":Math.random(),
      "name":name,
-     "message":message
+     "message":message,
+     "driverName":driverName
    });
   }
 
   async function createService(credentials) {
-      return fetch('http://localhost:3001/services', {
+      return fetch('http://localhost:3001/drivers', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -58,6 +62,16 @@ import {
             <Col className="order-xl-1" xl="8">
               <Card className="bg-secondary shadow">
                 <form >
+                    <div>
+                        <label htmlFor="name">Surucu Adi</label>
+                        <input
+                        id="driverName"
+                        type="text"
+                        value={driverName}
+                        onChange={(e) => setDriverName(e.target.value)}
+                        />
+                    </div>
+
                     <div>
                         <label htmlFor="name">Servis Plakasi</label>
                         <input
