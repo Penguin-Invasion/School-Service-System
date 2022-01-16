@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
 
 import "assets/plugins/nucleo/css/nucleo.css";
@@ -8,6 +9,23 @@ import AdminLayout from "layouts/Admin.js";
 import AuthLayout from "layouts/Auth.js";
 
 const App = () => {
+
+    const [token, setToken] = useState(null);
+
+    // if user not logged in, redirect to login page
+    if (!token) {
+        return (
+            <HashRouter>
+                <Switch>
+                    {/* <Route path="/admin" component={AdminLayout} /> */}
+                    <Route path="/auth" component={AuthLayout} />
+                    <Redirect from="/" to="/auth/login" />
+                </Switch>
+            </HashRouter>
+        );
+    }
+
+
     return (
         <HashRouter>
             <Switch>
