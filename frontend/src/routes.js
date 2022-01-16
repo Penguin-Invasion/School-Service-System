@@ -4,11 +4,11 @@ import Login from "views/examples/Login.js";
 import Tables from "views/examples/Tables.js";
 import EditProfile from "views/examples/editProfile.js";
 import AddService from "views/examples/addService.js";
-
+import AddDriver from "views/examples/addDriver.js";
 var routes = [
   {
     path: "/index",
-    show: true, 
+    show: true,
     name: "Dashboard",
     icon: "ni ni-tv-2 text-primary",
     component: Index,
@@ -49,9 +49,18 @@ var routes = [
   {
     path: "/add-service",
     show: false,
-    name: "Edit Profile",
+    name: "Edit Service",
     icon: "ni ni-key-25 text-info",
     component: AddService,
+    layout: "/admin",
+  },
+  ,
+  {
+    path: "/add-Driver",
+    show: false,
+    name: "Edit Driver",
+    icon: "ni ni-key-25 text-info",
+    component: AddDriver,
     layout: "/admin",
   },
 
