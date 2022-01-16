@@ -14,6 +14,19 @@
         "exit": "18:00",
         "diff": "8:00"
     }
-  ]
+  ],
+  "schools": [
+     {
+        "name": "ABC School",
+        "address": "123 ABC Street",
+        "city": "ABC City",
+        "state": "ABC State",
+        "zip": "12345",
+        "phone": "123-456-7890",
+        "fax": "123-456-7890"
+     }
+    ]
+    
+
 
 }
