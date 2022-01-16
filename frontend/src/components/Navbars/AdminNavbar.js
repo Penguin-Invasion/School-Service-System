@@ -20,6 +20,13 @@ import {
 } from "reactstrap";
 
 const AdminNavbar = (props) => {
+
+    // sign out funciton
+    const signOut = () => {
+        localStorage.removeItem('token');
+        props.setToken(null);
+    }
+
   return (
     <>
       <Navbar className="navbar-top navbar-dark" expand="md" id="navbar-main">
@@ -32,12 +39,7 @@ const AdminNavbar = (props) => {
           </Link>
           <Nav className="align-items-center d-none d-md-flex" navbar>
           
-              <NavItem>
-                <NavLink className="nav-link-icon" to="/auth/login" tag={Link}>
-                  <i className="ni ni-key-25" />
-                  <span className="nav-link-inner--text">Login</span>
-                </NavLink>
-              </NavItem>
+              
             <UncontrolledDropdown nav>
               <DropdownToggle to="/admin/user-profile" tag={Link} className="pr-0" nav>
                 <Media className="align-items-center">
@@ -58,6 +60,12 @@ const AdminNavbar = (props) => {
                 </Media>
               </DropdownToggle>
             </UncontrolledDropdown>
+            <NavItem>
+                <NavLink className="nav-link-icon" to="/auth/login" tag={Link}>
+                  <i className="ni ni-key-25" />
+                  <span onClick={signOut} className="nav-link-inner--text">Çıkış Yap</span>
+                </NavLink>
+              </NavItem>
           </Nav>
         </Container>
       </Navbar>

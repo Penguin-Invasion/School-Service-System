@@ -12,13 +12,12 @@ const ServiceBodyContainer = () => {
             const body = await result.json()
             setServiceBody(body)
 
-            console.log(`body`, body)
         }
 
         fetchData()
     }, [])
 
-    console.log(`serviceBody`, serviceBody)
+
 
     return (
         <>

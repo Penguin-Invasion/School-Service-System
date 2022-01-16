@@ -40,18 +40,14 @@ async function loginUser(credentials) {
 } 
 
 const Login = ({setToken}) => {
-    console.log("setToken: ", setToken);
 
-    // print getLoginInfoAndCheck() with console.log() and send info to console log
-    //getLoginInfoAndCheck().then(data => console.log("sa",data));
+
 
 
 
     const [username, setUserName] = useState();
     const [password, setPassword] = useState();
     const [loginAttempt, setLoginAttempt] = useState(false);
-    const [token, setToken2] = useState(null);
-    
 
     const handleSubmit = async e => {
         e.preventDefault();
@@ -59,7 +55,6 @@ const Login = ({setToken}) => {
             username,
           password
         });
-        console.log("token: ", token);
         setToken(res);
         
         // sleep for 2 seconds

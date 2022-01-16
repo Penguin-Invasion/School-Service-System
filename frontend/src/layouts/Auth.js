@@ -12,8 +12,8 @@ import AuthFooter from "components/Footers/AuthFooter.js";
 
 const Auth = (props) => {
 
-    console.log("props admin: ", props);
-    console.log("token?", props.setToken);
+
+
 
   const mainContent = React.useRef(null);
   const location = useLocation();

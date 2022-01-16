@@ -8,9 +8,14 @@ import "assets/scss/argon-dashboard-react.scss";
 import AdminLayout from "layouts/Admin.js";
 import AuthLayout from "layouts/Auth.js";
 
-const App = () => {
+import useToken from './useToken';
 
-    const [token, setToken] = useState(null);
+      
+const App = () => {
+          
+    const { token, setToken } = useToken();
+    
+    console.log("token is: ", token);
 
     // if user not logged in, redirect to login page
     if (!token) {
@@ -31,7 +36,7 @@ const App = () => {
     return (
         <HashRouter>
             <Switch>
-            <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
+            <Route path="/admin" render={(props) => <AdminLayout {...props} setToken={setToken} />} />
             {/* <Route path="/auth" render={(props) => <AuthLayout {...props} />} /> */}
             <Redirect from="/" to="/admin/index" />
             </Switch>
