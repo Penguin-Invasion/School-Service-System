@@ -12,7 +12,7 @@ import {
   Col,
 } from "reactstrap";
 
-async function loginUser(credentials) {
+async function createUser(credentials) {
     return fetch('http://localhost:3001/login', {
       method: 'POST',
       headers: {
@@ -23,11 +23,41 @@ async function loginUser(credentials) {
       .then(data => data.json())
 }
 
+// loginUser func
+async function loginUser(credentials) {
+    const response = await fetch('http://localhost:3001/login');
+    const body = await response.json();
+    console.log(`body`, body)
+
+    // iterate through body.data and check if credentials match
+    for (let i = 0; i < body.length; i++) {
+        if (body[i].email === credentials.email && body[i].password === credentials.password) {
+            return body[i];
+        }
+    }
+
+    return null;
+    
+    // // check username and password
+    // if (body.username === credentials.username && body.password === credentials.password) {
+    //     return true;
+    // } else {
+    //     return false;
+    // }
+        
+} 
+
 const Login = ({setToken}) => {
     console.log("setToken: ", setToken);
 
+    // print getLoginInfoAndCheck() with console.log() and send info to console log
+    //getLoginInfoAndCheck().then(data => console.log("sa",data));
+
+
+
     const [username, setUserName] = useState();
     const [password, setPassword] = useState();
+
 
     const handleSubmit = async e => {
         e.preventDefault();
@@ -35,6 +65,7 @@ const Login = ({setToken}) => {
           username,
           password
         });
+        console.log("token: ", token);
         setToken(token);
       }
 

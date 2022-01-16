@@ -33,8 +33,18 @@
       "fax": "123-456-7890"
     }
   ],
-  "login": {
-    "username": "sdfsd",
-    "password": "asahfa"
-  }
+  "login": [
+    {
+        "username": "admin",
+        "password": "123"
+    },
+    {
+        "username": "habil",
+        "password": "kalkan"
+    },
+    {
+        "username": "admin",
+        "password": "321"
+    }
+  ]
 }
