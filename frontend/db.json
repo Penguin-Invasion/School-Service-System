@@ -36,15 +36,18 @@
   "login": [
     {
         "username": "admin",
-        "password": "123"
+        "password": "123",
+        "type": "admin"
     },
     {
         "username": "habil",
-        "password": "kalkan"
+        "password": "kalkan",
+        "type": "admin"
     },
     {
-        "username": "admin",
-        "password": "321"
+        "username": "service",
+        "password": "321",
+        "type": "service"
     }
   ]
 }

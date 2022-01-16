@@ -31,7 +31,7 @@ async function loginUser(credentials) {
     // iterate through body.data and check if credentials match
     for (let i = 0; i < body.length; i++) {
         if (body[i].email === credentials.email && body[i].password === credentials.password) {
-            return body[i];
+            return body[i].type;
         }
     }
 
@@ -50,18 +50,21 @@ const Login = ({setToken}) => {
     const [username, setUserName] = useState();
     const [password, setPassword] = useState();
     const [loginAttempt, setLoginAttempt] = useState(false);
+    const [token, setToken2] = useState(null);
     
-    let token = false;
 
     const handleSubmit = async e => {
         e.preventDefault();
-        setLoginAttempt(true);
-        token = await loginUser({
-          username,
+        const res = await loginUser({
+            username,
           password
         });
         console.log("token: ", token);
-        setToken(token);
+        setToken(res);
+        
+        // sleep for 2 seconds
+        await new Promise(resolve => setTimeout(resolve, 1100));
+        setLoginAttempt(true);
       }
 
 
@@ -73,7 +76,7 @@ const Login = ({setToken}) => {
         <CardBody className="px-lg-5 py-lg-5">
         <form onSubmit={handleSubmit}>
               <FormGroup className="mb-3">
-              {loginAttempt && <h2>Geçersiz Kullanıcı Adı - Şifre</h2>}
+              {loginAttempt  && <h2>Geçersiz Kullanıcı Adı - Şifre</h2>}
                 <InputGroup className="input-group-alternative">
                   <InputGroupAddon addonType="prepend">
                     <InputGroupText>
