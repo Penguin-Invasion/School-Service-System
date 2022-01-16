@@ -27,7 +27,6 @@ async function createUser(credentials) {
 async function loginUser(credentials) {
     const response = await fetch('http://localhost:3001/login');
     const body = await response.json();
-    console.log(`body`, body)
 
     // iterate through body.data and check if credentials match
     for (let i = 0; i < body.length; i++) {
@@ -37,13 +36,6 @@ async function loginUser(credentials) {
     }
 
     return null;
-    
-    // // check username and password
-    // if (body.username === credentials.username && body.password === credentials.password) {
-    //     return true;
-    // } else {
-    //     return false;
-    // }
         
 } 
 
@@ -57,11 +49,14 @@ const Login = ({setToken}) => {
 
     const [username, setUserName] = useState();
     const [password, setPassword] = useState();
-
+    const [loginAttempt, setLoginAttempt] = useState(false);
+    
+    let token = false;
 
     const handleSubmit = async e => {
         e.preventDefault();
-        const token = await loginUser({
+        setLoginAttempt(true);
+        token = await loginUser({
           username,
           password
         });
@@ -78,6 +73,7 @@ const Login = ({setToken}) => {
         <CardBody className="px-lg-5 py-lg-5">
         <form onSubmit={handleSubmit}>
               <FormGroup className="mb-3">
+              {loginAttempt && <h2>Geçersiz Kullanıcı Adı - Şifre</h2>}
                 <InputGroup className="input-group-alternative">
                   <InputGroupAddon addonType="prepend">
                     <InputGroupText>
