@@ -2,20 +2,20 @@ import React from 'react'
 import ServiceBody from './ServiceBody'
 import { useState, useEffect } from 'react'
 
+import useToken from '../../useToken'
+
 const ServiceBodyContainer = () => {
     const [serviceBody, setServiceBody] = useState([])
+    const { token } = useToken();
 
     // fetch data from the api
     useEffect(() => {
         const fetchData = async () => {
-            const tokenString = localStorage.getItem('token');
-            const userToken = JSON.parse(tokenString);
-
             const result = await fetch('https://schoolservicesystem.azurewebsites.net/api/School', {
                 method: 'GET',
                 headers: {
                     // set token
-                    'Authorization': 'Bearer ' + userToken,
+                    'Authorization': 'Bearer ' + token,
                     'Content-Type': 'application/json'
                 }
             })
