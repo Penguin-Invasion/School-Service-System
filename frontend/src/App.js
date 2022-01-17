@@ -26,8 +26,7 @@ const App = () => {
     //checkToken();
           
     const { token, setToken } = useToken();
-    
-    console.log("token is: ", token);
+
 
     // if user not logged in, redirect to login page
     if (!token) {
