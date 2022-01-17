@@ -12,19 +12,31 @@ import {
   Col,
 } from "reactstrap";
 
-async function createUser(credentials) {
-    return fetch('http://localhost:3001/login', {
+
+// 'content-encoding': 'gzip', 
+// 'content-type': 'application/json; charset=utf-8', 
+// 'date': 'Mon,17 Jan 2022 09:01:22 GMT',
+// 'server': 'Microsoft-IIS/10.0' ,
+// 'transfer-encoding': 'chunked', 
+// 'vary': 'Accept-Encoding' ,
+// 'x-powered-by': 'ASP.NET'
+
+async function loginUser(credentials) {
+    const response = await fetch('https://schoolservicesystem.azurewebsites.net/api/Auth', {
       method: 'POST',
       headers: {
+          // Access-Control-Allow-Origin
+        'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(credentials)
     })
-      .then(data => data.json())
+
+    return body.data.token;
 }
 
 // loginUser func
-async function loginUser(credentials) {
+async function c(credentials) {
     const response = await fetch('http://localhost:3001/login');
     const body = await response.json();
 
@@ -51,10 +63,12 @@ const Login = ({setToken}) => {
 
     const handleSubmit = async e => {
         e.preventDefault();
+        const email = username;
         const res = await loginUser({
-            username,
-          password
+            email,
+            password
         });
+        console.log(res);
         setToken(res);
         
         // sleep for 2 seconds
