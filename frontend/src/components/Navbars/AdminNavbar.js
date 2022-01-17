@@ -19,7 +19,34 @@ import {
   Media,
 } from "reactstrap";
 
+import { useState, useEffect } from 'react'
+
+import useToken from '../../useToken'
+
 const AdminNavbar = (props) => {
+
+    const [ name, setName ] = useState('')
+    const { token } = useToken();
+
+    // fetch data from the api
+    useEffect(() => {
+        const fetchData = async () => {
+            const result = await fetch('https://schoolservicesystem.azurewebsites.net/api/Auth', {
+                method: 'GET',
+                headers: {
+                    // set token
+                    'Authorization': 'Bearer ' + token,
+                    'Content-Type': 'application/json'
+                }
+            })
+            const body = await result.json()
+            console.log("body in admin navbar", body)
+            setName(body.data.name + ' ' + body.data.surName)
+
+        }
+
+        fetchData()
+    }, [])
 
     // sign out funciton
     const signOut = () => {
@@ -54,7 +81,7 @@ const AdminNavbar = (props) => {
                   </span>
                   <Media className="ml-2 d-none d-lg-block">
                     <span className="mb-0 text-sm font-weight-bold">
-                      Habil Kalkan
+                      {name}
                     </span>
                   </Media>
                 </Media>
