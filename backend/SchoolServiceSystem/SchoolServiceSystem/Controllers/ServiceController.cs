@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SchoolServiceSystem.DTOs.School;
 using SchoolServiceSystem.DTOs.Service;
+using SchoolServiceSystem.DTOs.Student;
 using SchoolServiceSystem.Filters;
 using SchoolServiceSystem.Models;
 using SchoolServiceSystem.Services;
@@ -16,7 +17,7 @@ using System.Threading.Tasks;
 namespace SchoolServiceSystem.Controllers
 {
 
-    [Route("api/[controller]")]
+    [Route("api/School/{SchoolID}/[controller]")]
     [Authorize(Roles = "Admin,Manager")]
     [ApiController]
     public class ServiceController : ControllerBase
@@ -29,38 +30,49 @@ namespace SchoolServiceSystem.Controllers
             _mapper = mapper;
             _serviceService = ServiceService;
             _userService = userService;
+
         }
 
         [HttpGet]
-        [Route("{ID}")]
-        public async Task<ActionResult<GetServiceDTO>> Get(int ID)
+        [Route("{ServiceID}")]
+        public async Task<ServiceResponse<GetServiceDTO>> Get(int SchoolID, int ServiceID)
         {
+            await checkAuthManagerAsync(SchoolID);
 
-            var data = await _serviceService.Get(ID);
-            await checkAuthManagerAsync(data.SchoolID);
-
+            var data = await _serviceService.Get(ServiceID);
             var response = _mapper.Map<GetServiceDTO>(data);
-            return response;
+            var result = new ServiceResponse<GetServiceDTO>()
+            {
+                Data = response,
+                Success = true
+            };
+            return result;
         }
 
         [HttpPost]
-        public async Task<ActionResult<GetServiceDTO>> Add(CreateServiceDTO createServiceDTO)
+        public async Task<ServiceResponse<GetServiceDTO>> Add(int SchoolID, CreateServiceDTO createServiceDTO)
         {
-            await checkAuthManagerAsync(createServiceDTO.SchoolID);
+            await checkAuthManagerAsync(SchoolID);
 
             Service createService = _mapper.Map<Service>(createServiceDTO);
             Service service = await _serviceService.Create(createService);
             GetServiceDTO getServiceDTO = _mapper.Map<GetServiceDTO>(service);
-            return getServiceDTO;
+            var result = new ServiceResponse<GetServiceDTO>()
+            {
+                Data = getServiceDTO,
+                Success = true
+            };
+            return result;
         }
 
         [HttpPatch]
-        [Route("{ID}")]
-        public async Task<ActionResult<ServiceResponse<GetServiceDTO>>> Update(int ID, UpdateServiceDTO updateServiceDTO)
+        [Route("{ServiceID}")]
+        public async Task<ServiceResponse<GetServiceDTO>> Update(int SchoolID, int ServiceID, UpdateServiceDTO updateServiceDTO)
         {
-            Service Service = _mapper.Map<Service>(updateServiceDTO);
-            Service = await _serviceService.Update(ID, updateServiceDTO);
-            GetServiceDTO data = _mapper.Map<GetServiceDTO>(Service);
+            await checkAuthManagerAsync(SchoolID);
+
+            Service service = await _serviceService.Update(ServiceID, updateServiceDTO);
+            GetServiceDTO data = _mapper.Map<GetServiceDTO>(service);
             ServiceResponse<GetServiceDTO> response = new ServiceResponse<GetServiceDTO>()
             {
                 Data = data,
@@ -70,20 +82,70 @@ namespace SchoolServiceSystem.Controllers
 
             return response;
         }
+
         [HttpDelete]
-        [Route("{ID}")]
-        public async Task<ServiceResponse<Object>> Delete(int ID)
+        [Route("{ServiceID}")]
+        public async Task<ServiceResponse<Object>> Delete(int SchoolID, int ServiceID)
         {
-            var data = await _serviceService.Get(ID);
+            await checkAuthManagerAsync(SchoolID);
 
-            await checkAuthManagerAsync(data.SchoolID);
-
+            var data = await _serviceService.Get(ServiceID);
             bool result = await _serviceService.Delete(data);
             var response = new ServiceResponse<Object>() { Success = result };
             return response;
         }
 
+        [HttpGet]
+        [Route("{ServiceID}/Student/{StudentID}")]
+        public async Task<ServiceResponse<GetStudentDTO>> GetStudent(int SchoolID, int ServiceID, int StudentID)
+        {
+            await checkAuthManagerAsync(SchoolID);
 
+            var student = await _serviceService.FindStudent(ServiceID, StudentID);
+            var result = _mapper.Map<GetStudentDTO>(student);
+            var response = new ServiceResponse<GetStudentDTO>()
+            {
+                Data = result,
+                Success = true
+            };
+            return response;
+        }
+
+        [HttpPost]
+        [Route("{ServiceID}/Student")]
+        public async Task<ServiceResponse<GetStudentDTO>> AddStudent(int SchoolID, int ServiceID, CreateStudentDTO createStudentDTO)
+        {
+            await checkAuthManagerAsync(SchoolID);
+            var student = _mapper.Map<Student>(createStudentDTO);
+            student.ServiceID = ServiceID;
+            student = await _serviceService.CreateStudent(student);
+            var result = _mapper.Map<GetStudentDTO>(student);
+            var response = new ServiceResponse<GetStudentDTO>() { Data = result, Success = true };
+            return response;
+        }
+
+        [HttpPatch]
+        [Route("{ServiceID}/Student/{StudentID}")]
+        public async Task<ServiceResponse<GetStudentDTO>> UpdateStudent(int SchoolID, int ServiceID, int StudentID, UpdateStudentDTO updateStudent)
+        {
+            await checkAuthManagerAsync(SchoolID);
+
+            var data = await _serviceService.UpdateStudent(ServiceID, StudentID, updateStudent);
+            var result = _mapper.Map<GetStudentDTO>(data);
+            var response = new ServiceResponse<GetStudentDTO>() { Data = result, Success = true };
+            return response;
+        }
+
+        [HttpDelete]
+        [Route("{ServiceID}/Student/{StudentID}")]
+        public async Task<ServiceResponse<bool>> RemoveStudent(int SchoolID, int ServiceID, int StudentID)
+        {
+            await checkAuthManagerAsync(SchoolID);
+
+            var data = await _serviceService.RemoveStudent(ServiceID, StudentID);
+            var result = new ServiceResponse<bool>() { Success = data };
+            return result;
+        }
 
         private async Task<bool> checkAuthManagerAsync(int SchoolID)
         {
@@ -95,7 +157,6 @@ namespace SchoolServiceSystem.Controllers
             else if (_userService.GetCurrentUserRole() == Roles.Manager)
             {
                 auth = await _userService.checkAuthorityManager(SchoolID);
-                Console.WriteLine(auth);
                 if (auth == false)
                 {
                     throw new UnauthorizedAccessException();

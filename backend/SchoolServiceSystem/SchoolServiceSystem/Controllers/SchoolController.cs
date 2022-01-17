@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using SchoolServiceSystem.DTOs.School;
 using SchoolServiceSystem.Filters;
 using SchoolServiceSystem.Models;
-using SchoolServiceSystem.Services.SchoolService;
+using SchoolServiceSystem.Services;
 using SchoolServiceSystem.Utils;
 using System;
 using System.Collections.Generic;
@@ -16,48 +16,77 @@ namespace SchoolServiceSystem.Controllers
 {
 
     [Route("api/[controller]")]
-    [Authorize(Roles = "Admin")]
     [ApiController]
     public class SchoolController : ControllerBase
     {
         private readonly IMapper _mapper;
         private readonly SchoolService _schoolService;
+        private readonly UserService _userService;
 
-        public SchoolController(IMapper mapper, SchoolService schoolService)
+        public SchoolController(IMapper mapper, SchoolService schoolService, UserService userService)
         {
             _mapper = mapper;
             _schoolService = schoolService;
+            _userService = userService;
         }
 
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<GetSchoolDTO>>> GetAll()
+        [Authorize(Roles = "Admin,Manager")]
+        public async Task<ServiceResponse<IEnumerable<GetSchoolDTO>>> GetAll()
         {
-            var data = await _schoolService.GetAll();
+            IEnumerable<School> data = null;
+            if (_userService.GetCurrentUserRole() == Roles.Admin)
+            {
+                data = await _schoolService.GetAll();
+            }
+            else if (_userService.GetCurrentUserRole() == Roles.Manager)
+            {
+                var userID = _userService.GetCurrentUserId();
+                data = await _schoolService.FindManagerSchools(userID, true, true);
+            }
+
             var response = _mapper.Map<IEnumerable<GetSchoolDTO>>(data);
-            return response.ToList();
+            var result = new ServiceResponse<IEnumerable<GetSchoolDTO>>()
+            {
+                Data = response.ToList(),
+                Success = true
+            };
+            return result;
         }
 
         [HttpGet]
         [Route("{ID}")]
-        public async Task<ActionResult<GetSchoolDTO>> Get(int ID)
+        public async Task<ServiceResponse<GetSchoolDTO>> Get(int ID)
         {
             var data = await _schoolService.Get(ID);
             var response = _mapper.Map<GetSchoolDTO>(data);
-            return response;
+            var result = new ServiceResponse<GetSchoolDTO>()
+            {
+                Data = response,
+                Success = true
+            };
+            return result;
         }
 
         [HttpPost]
-        public async Task<ActionResult<GetSchoolDTO>> Add(CreateSchoolDTO createSchoolDTO)
+        [Authorize(Roles = "Admin")]
+        public async Task<ServiceResponse<GetSchoolDTO>> Add(CreateSchoolDTO createSchoolDTO)
         {
             School createSchool = _mapper.Map<School>(createSchoolDTO);
             School school = await _schoolService.Create(createSchool);
             GetSchoolDTO getSchoolDTO = _mapper.Map<GetSchoolDTO>(school);
-            return getSchoolDTO;
+            var result = new ServiceResponse<GetSchoolDTO>()
+            {
+                Data = getSchoolDTO,
+                Success = true
+            };
+            return result;
         }
 
         [HttpDelete]
         [Route("{ID}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ServiceResponse<Object>> Delete(int ID)
         {
             bool result = await _schoolService.Delete(ID);
@@ -67,10 +96,10 @@ namespace SchoolServiceSystem.Controllers
 
         [HttpPatch]
         [Route("{ID}")]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<ActionResult<ServiceResponse<GetSchoolDTO>>> Update(int ID, UpdateSchoolDTO updateSchoolDTO)
         {
-            School school = _mapper.Map<School>(updateSchoolDTO);
-            school = await _schoolService.Update(ID, school);
+            School school = await _schoolService.Update(ID, updateSchoolDTO);
             GetSchoolDTO data = _mapper.Map<GetSchoolDTO>(school);
             ServiceResponse<GetSchoolDTO> response = new ServiceResponse<GetSchoolDTO>()
             {
@@ -82,31 +111,5 @@ namespace SchoolServiceSystem.Controllers
             return response;
         }
 
-
-        [HttpPost]
-        [Route("{SchoolID}/add/managers/{ManagerID}")]
-        public async Task<ActionResult<ServiceResponse<bool>>> AddManagers(int SchoolID, int ManagerID)
-        {
-            bool data = await _schoolService.AddManager(SchoolID, ManagerID);
-            var response = new ServiceResponse<bool>()
-            {
-                Data = data,
-                Success = data
-            };
-            return response;
-        }
-
-        [HttpDelete]
-        [Route("{SchoolID}/delete/managers/{ManagerID}")]
-        public async Task<ActionResult<ServiceResponse<bool>>> RemoveManager(int SchoolID, int ManagerID)
-        {
-            bool data = await _schoolService.RemoveManager(SchoolID, ManagerID);
-            var response = new ServiceResponse<bool>()
-            {
-                Data = data,
-                Success = data
-            };
-            return response;
-        }
     }
 }

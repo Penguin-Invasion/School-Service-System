@@ -24,7 +24,7 @@ namespace SchoolServiceSystem.Models
 
         public School School { get; set; }
 
-        public Bus Bus;
+        public Service Service { get; set; }
 
         //Admin,Manager,Driver
         public Roles Role { get; set; }

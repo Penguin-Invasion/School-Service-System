@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using SchoolServiceSystem.DTOs.Auth;
+using SchoolServiceSystem.DTOs.Entry;
 using SchoolServiceSystem.DTOs.School;
 using SchoolServiceSystem.DTOs.Service;
+using SchoolServiceSystem.DTOs.Student;
 using SchoolServiceSystem.DTOs.User;
 using SchoolServiceSystem.Models;
 using System;
@@ -16,7 +18,7 @@ namespace SchoolServiceSystem
         public AutoMapperProfile()
         {
 
-            CreateMap<CreateSchoolDTO, School>();
+            /*CreateMap<CreateSchoolDTO, School>();
             CreateMap<UpdateSchoolDTO, School>();
             CreateMap<School, GetSchoolDTO>();
 
@@ -25,13 +27,34 @@ namespace SchoolServiceSystem
             CreateMap<User, GetUserDTO>();
 
             CreateMap<CreateServiceDTO, Service>();
-            CreateMap<UpdateServiceDTO, Service>()
-                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) =>
-                {
-                    return srcMember != null && !srcMember.ToString().Equals("0");
-                })); ;
+            CreateMap<UpdateServiceDTO, Service>();
+            .ForAllMembers(opts => opts.Condition((src, dest, srcMember) =>
+            {
+                return srcMember != null && !srcMember.ToString().Equals("0");
+            }));
 
+            CreateMap<Service, GetServiceDTO>();*/
+
+            CreateMap<CreateSchoolDTO, School>();
+            CreateMap<UpdateSchoolDTO, School>();
+            CreateMap<School, GetSchoolDTO>();
+
+            CreateMap<CreateServiceDTO, Service>();
+            CreateMap<UpdateServiceDTO, Service>();
             CreateMap<Service, GetServiceDTO>();
+
+            CreateMap<Entry, GetEntryDTO>().ForMember(dest => dest.Time, opt => opt.MapFrom(src => src.Time.ToString("HH:mm:ss"))).ForMember(dest => dest.Date, opt => opt.MapFrom(src => src.Time.ToString("dd/MM/yyyy")));
+
+            CreateMap<CreateStudentDTO, Student>();
+            CreateMap<UpdateStudentDTO, Student>();
+            CreateMap<Student, GetStudentDTO>();
+
+            CreateMap<CreateUserDTO, User>();
+            CreateMap<UpdateUserDTO, User>();
+            CreateMap<User, GetUserDTO>();
+            CreateMap<User, GetUserWithTokenDTO>();
+            CreateMap<LoginDTO, User>();
+
         }
     }
 }

@@ -10,5 +10,6 @@ namespace SchoolServiceSystem.DTOs.School
     public class CreateSchoolDTO
     {
         public string Name { get; set; }
+        public string UserID { get; set; }
     }
 }

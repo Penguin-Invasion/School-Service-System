@@ -16,7 +16,6 @@ using SchoolServiceSystem.Data;
 using SchoolServiceSystem.Filters;
 using SchoolServiceSystem.Services;
 using SchoolServiceSystem.Services.AuthService;
-using SchoolServiceSystem.Services.SchoolService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,16 +36,21 @@ namespace SchoolServiceSystem
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(o => o.AddPolicy("AllowPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
 
-            services.AddControllers(/*options => options.Filters.Add<ExceptionHandlingFilter>()*/).AddNewtonsoftJson(options =>
+            services.AddControllers(options => options.Filters.Add<ExceptionHandlingFilter>()).AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
 
             var dbConnectionString = Configuration.GetConnectionString("dbConnectionString");
             services.AddDbContextPool<DataContext>(options =>
-                options.UseMySql(
-                    dbConnectionString,
-                    ServerVersion.AutoDetect(dbConnectionString)
+                options.UseSqlServer(
+                    dbConnectionString
                 )
                 .EnableSensitiveDataLogging() // Do not use in prod
                 .EnableDetailedErrors() // Do not use in prod
@@ -111,18 +115,19 @@ namespace SchoolServiceSystem
             services.AddScoped<TokenService>();
             services.AddScoped<AuthService>();
             services.AddScoped<ServiceService>();
+            services.AddScoped<EntryService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SchoolServiceSystem v1"));
-            }
-
+            //if (env.IsDevelopment())
+            // {
+            app.UseDeveloperExceptionPage();
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SchoolServiceSystem v1"));
+            //}
+            app.UseCors("AllowPolicy");
             app.UseHttpsRedirection();
 
             app.UseRouting();

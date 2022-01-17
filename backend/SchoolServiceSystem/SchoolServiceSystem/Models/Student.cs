@@ -11,6 +11,7 @@ namespace SchoolServiceSystem.Models
         public string Name { get; set; }
         public string SurName { get; set; }
         public int Year { get; set; }
+        public int ServiceID { get; set; }
         public Service Service { get; set; }
 
     }

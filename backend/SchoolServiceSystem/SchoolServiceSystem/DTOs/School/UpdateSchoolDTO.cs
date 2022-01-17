@@ -10,8 +10,7 @@ namespace SchoolServiceSystem.DTOs.School
     public class UpdateSchoolDTO
     {
         public string Name { get; set; }
+        public int UserID { get; set; }
         public string SecretKey { get; set; }
-        public List<UpdateUserDTO> Managers { get; set; }
-        public List<UpdateServiceDTO> Services { get; set; }
     }
 }

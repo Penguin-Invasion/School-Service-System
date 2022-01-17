@@ -33,27 +33,32 @@ namespace SchoolServiceSystem.Controllers
         }
         [HttpGet]
         [Authorize(Roles = "Admin,Manager,Driver")]
-        public async Task<GetUserDTO> GetMyInfo()
+        public async Task<ServiceResponse<GetUserDTO>> GetMyInfo()
         {
+            var result = new ServiceResponse<GetUserDTO>();
             var user = await _userService.GetMyInfo();
-            var result = _mapper.Map<GetUserDTO>(user);
+            var data = _mapper.Map<GetUserDTO>(user);
+            result.Data = data;
+            result.Success = true;
             return result;
         }
 
         [HttpPost]
-        public async Task<GetUserWithTokenDTO> Login(LoginDTO loginDTO)
+        public async Task<ServiceResponse<GetUserWithTokenDTO>> Login(LoginDTO loginDTO)
         {
+            var result = new ServiceResponse<GetUserWithTokenDTO>();
             var loginUser = _mapper.Map<User>(loginDTO);
             var user = await _authService.Login(loginUser);
-            var result = _mapper.Map<GetUserWithTokenDTO>(user);
+            var data = _mapper.Map<GetUserWithTokenDTO>(user);
 
             List<Claim> claims = new List<Claim> {
                 new Claim(ClaimTypes.NameIdentifier,user.ID.ToString()),
                 new Claim(ClaimTypes.Role, Roles.GetName(user.Role))
             };
 
-            result.Token = _tokenService.CreateToken(user, claims);
-
+            data.Token = _tokenService.CreateToken(user, claims);
+            result.Data = data;
+            result.Success = true;
             return result;
         }
     }

@@ -12,6 +12,6 @@ namespace SchoolServiceSystem.DTOs.Student
         public string Name { get; set; }
         public string SurName { get; set; }
         public int Year { get; set; }
-        public GetServiceDTO Service { get; set; }
+        //public GetServiceDTO Service { get; set; }
     }
 }

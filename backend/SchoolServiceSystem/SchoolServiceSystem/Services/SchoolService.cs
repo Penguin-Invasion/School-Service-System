@@ -1,14 +1,16 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using SchoolServiceSystem.Data;
+using SchoolServiceSystem.DTOs.School;
 using SchoolServiceSystem.Exceptions;
 using SchoolServiceSystem.Models;
+using SchoolServiceSystem.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SchoolServiceSystem.Services.SchoolService
+namespace SchoolServiceSystem.Services
 {
     public class SchoolService
     {
@@ -24,7 +26,7 @@ namespace SchoolServiceSystem.Services.SchoolService
         }
         public async Task<IEnumerable<School>> GetAll()
         {
-            IEnumerable<School> data = await _context.Schools.ToListAsync();
+            IEnumerable<School> data = await _context.Schools.Include(s => s.User).Include(s => s.Services).ToListAsync();
             return data;
         }
 
@@ -35,6 +37,7 @@ namespace SchoolServiceSystem.Services.SchoolService
         }
         public async Task<School> Create(School school)
         {
+            school.SecretKey = Patcher.RandomString(30);
             await _context.Schools.AddAsync(school);
             int result = await _context.SaveChangesAsync();
 
@@ -48,7 +51,7 @@ namespace SchoolServiceSystem.Services.SchoolService
         }
         public async Task<bool> Delete(int ID)
         {
-            School school = await Find(ID);
+            School school = await Find(ID, true, true);
             _context.Schools.Remove(school);
             int result = await _context.SaveChangesAsync();
             if (result != 1)
@@ -59,10 +62,10 @@ namespace SchoolServiceSystem.Services.SchoolService
             return true;
         }
 
-        public async Task<School> Update(int id, School updateSchool)
+        public async Task<School> Update(int ID, UpdateSchoolDTO updateSchool)
         {
-            School school = await Find(id);
-            _mapper.Map<School, School>(updateSchool, school);
+            School school = await Find(ID);
+            Patcher.Patch(school, updateSchool);
             _context.Schools.Update(school);
             int result = await _context.SaveChangesAsync();
             if (result != 1)
@@ -72,41 +75,7 @@ namespace SchoolServiceSystem.Services.SchoolService
             return school;
         }
 
-        public async Task<bool> AddManager(int ID, int managerID)
-        {
 
-            School school = await Find(ID, true);
-            User manager = await _userService.FindManager(managerID);
-
-            school.Users.Add(manager);
-            int result = await _context.SaveChangesAsync();
-            if (result < 1)
-            {
-                throw new NotCreatedException("Manager couldn't be added to school");
-            }
-
-            return true;
-        }
-
-
-        public async Task<bool> RemoveManager(int ID, int managerID)
-        {
-            School school = await Find(ID, true);
-
-            User manager = school.Users.SingleOrDefault(user => user.ID.Equals(managerID));
-            if (manager == null)
-            {
-                throw new NotDeletedException("Manager couldn't be deleted.");
-            }
-            school.Users.Remove(manager);
-            int result = await _context.SaveChangesAsync();
-            if (result < 1)
-            {
-                throw new NotCreatedException("Manager couldn't be deleted from school");
-            }
-
-            return true;
-        }
         public async Task<School> Find(int ID, bool manager = false, bool services = false)
         {
             School school;
@@ -115,7 +84,7 @@ namespace SchoolServiceSystem.Services.SchoolService
                 if (manager && services)
                 {
                     school = await _context.Schools
-                        .Include(school => school.Users)
+                        .Include(school => school.User)
                         .Include(school => school.Services)
                         .SingleOrDefaultAsync(school => school.ID.Equals(ID));
                 }
@@ -126,7 +95,7 @@ namespace SchoolServiceSystem.Services.SchoolService
                 else if (manager)
                 {
                     school = await _context.Schools
-                        .Include(school => school.Users)
+                        .Include(school => school.User)
                         .SingleOrDefaultAsync(school => school.ID.Equals(ID));
                 }
                 else
@@ -146,6 +115,47 @@ namespace SchoolServiceSystem.Services.SchoolService
                 throw new NotFoundException("School couldn't be found.");
             }
             return school;
+        }
+
+        public async Task<IEnumerable<School>> FindManagerSchools(int userID, bool manager = false, bool services = false)
+        {
+            IEnumerable<School> schools;
+            try
+            {
+                if (manager && services)
+                {
+                    schools = await _context.Schools
+                        .Include(school => school.User)
+                        .Include(school => school.Services)
+                        .Where(school => school.User.ID.Equals(userID)).ToListAsync();
+                }
+                else if (!manager && !services)
+                {
+                    schools = await _context.Schools.Where(school => school.User.ID.Equals(userID)).ToListAsync();
+                }
+                else if (manager)
+                {
+                    schools = await _context.Schools
+                        .Include(school => school.User)
+                        .Where(school => school.User.ID.Equals(userID)).ToListAsync();
+                }
+                else
+                {
+                    schools = await _context.Schools
+                        .Include(school => school.Services)
+                        .Where(school => school.User.ID.Equals(userID)).ToListAsync();
+                }
+
+            }
+            catch (Exception)
+            {
+                throw new NotFoundException("School couldn't be found.");
+            }
+            if (schools == null)
+            {
+                throw new NotFoundException("School couldn't be found.");
+            }
+            return schools;
         }
     }
 }
