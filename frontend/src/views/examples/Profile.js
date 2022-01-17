@@ -10,7 +10,35 @@ import {
 // core components
 import UserHeader from "components/Headers/UserHeader.js";
 
+import { useState, useEffect } from 'react'
+
+import useToken from '../../useToken'
+
 const Profile = () => {
+
+    const [ name, setName ] = useState('')
+    const { token } = useToken();
+
+    // fetch data from the api
+    useEffect(() => {
+        const fetchData = async () => {
+            const result = await fetch('https://schoolservicesystem.azurewebsites.net/api/Auth', {
+                method: 'GET',
+                headers: {
+                    // set token
+                    'Authorization': 'Bearer ' + token,
+                    'Content-Type': 'application/json'
+                }
+            })
+            const body = await result.json()
+            console.log("body in admin navbar", body)
+            setName(body.data.name + ' ' + body.data.surName)
+
+        }
+
+        fetchData()
+    }, [])
+
   return (
     <>
       <UserHeader />
@@ -78,7 +106,7 @@ const Profile = () => {
                 </Row>
                 <div className="text-center">
                   <h3>
-                    Habil Kalkan
+                    {name}
                   </h3>
                   <div className="h5 font-weight-300">
                     <i className="ni location_pin mr-2" />
