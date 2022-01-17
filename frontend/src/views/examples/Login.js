@@ -11,6 +11,7 @@ import {
   Row,
   Col,
 } from "reactstrap";
+import { data } from "jquery";
 
 
 // 'content-encoding': 'gzip', 
@@ -31,8 +32,14 @@ async function loginUser(credentials) {
       },
       body: JSON.stringify(credentials)
     })
+    
+    const body  = await response.json();
+    if (body.success) {
+        return body.data.token;
+    }
 
-    return body.data.token;
+    return null;
+
 }
 
 // loginUser func

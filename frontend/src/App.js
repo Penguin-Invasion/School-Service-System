@@ -10,8 +10,20 @@ import AuthLayout from "layouts/Auth.js";
 
 import useToken from './useToken';
 
+// take token from local storage and check if undefined, clear the local storage
+// if token is not undefined, set the token to the state
+// if token is undefined, redirect to login page
+const checkToken = () => {
+    const tokenString = localStorage.getItem('token');
+    const token = JSON.parse(tokenString);
+    if (token === null || token === undefined) {
+        localStorage.clear();
+    }
+}
       
 const App = () => {
+
+    //checkToken();
           
     const { token, setToken } = useToken();
     
