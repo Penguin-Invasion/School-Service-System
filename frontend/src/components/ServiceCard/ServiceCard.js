@@ -19,7 +19,7 @@ const renderSeeAll = (show) => {
     if (show === true)
     {
         return  <Button>
-                    <Link color="blue" to="/admin/tables">See all </Link>
+                    <Link color="blue" to="/admin/tables">Tümünü Gör</Link>
                 </Button>
     }
 }
@@ -45,7 +45,8 @@ const ServiceCard = (props) => {
               <CardHeader className="border-0">
                 <Row className="align-items-center">
                 <div className="col">
-                    <h3 className="mb-0">Service Info</h3>
+                    <h3 className="mb-0">Servis Bilgileri </h3>
+                    <p className="text-sm mb-0">Buradan Son Giriş Yapan Servisleri Görebilirsiniz</p>
                 </div>
                 <div className="col text-right">
                 {renderSeeAll(props.dashboard)}
@@ -56,14 +57,15 @@ const ServiceCard = (props) => {
               <Table className="align-items-center table-flush penguin-table-head" responsive>
                 <thead className="thead-light">
                   <tr>
-                    <th scope="col">Service Name</th>
-                    <th scope="col">Entrance Time</th>
-                    <th scope="col">Exit Time</th>
-                    <th scope="col">Last Updated</th>
+                    <th scope="col">Servis İsmi</th>
+                    <th scope="col">Plakası</th>
+                    <th scope="col">Saat</th>
+                    <th scope="col">Gün</th>
                   </tr>
                 </thead>
                 </Table>
               </div>
+              
               {showAllServices(props.dashboard)}
             </Card>
           </Col>

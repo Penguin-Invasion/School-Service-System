@@ -4,12 +4,12 @@ const ServiceBody = (props) => {
     return (
         <tbody>
                 <tr>
-                <th scope="row">{props.name}</th>
-                <td> {props.entrance} </td>
-                <td> {props.exit} </td>
-                <td>
-                    <i className="fas fa-arrow-up text-success mr-3" /> {props.diff} 
-                </td>
+                <th >{props.name}</th>
+                <td> {props.plaque} </td>
+                <td> {props.lastUpdate} 12:45 </td>
+                <td> {props.status} 17/01 </td>
+                
+                
                 </tr>
         </tbody>
     )

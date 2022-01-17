@@ -37,9 +37,9 @@ const ServiceBodyContainer = () => {
                     //key={service.id}
                     id={service.id}
                     name={service.name}
-                    entrance={service.plaque}
-                    exit={service.exit}
-                    diff={service.diff}
+                    plaque={service.plaque}
+                    lastUpdate={service.lastUpdate}
+                    status={service.status}
                 />
             )
         })}
