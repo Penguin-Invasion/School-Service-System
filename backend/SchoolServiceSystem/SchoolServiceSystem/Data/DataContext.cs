@@ -81,7 +81,7 @@ namespace SchoolServiceSystem.Data
                     new School
                     {
                         ID = 2,
-                        Name = "Test Okul1",
+                        Name = "Test Okul2",
                         SecretKey = Patcher.RandomString(30),
                         UserID = 3
 

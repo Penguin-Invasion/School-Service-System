@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using SchoolServiceSystem.Data;
+using SchoolServiceSystem.DTOs.User;
 using SchoolServiceSystem.Exceptions;
 using SchoolServiceSystem.Models;
 using SchoolServiceSystem.Utils;
@@ -71,6 +72,18 @@ namespace SchoolServiceSystem.Services
             return true;
         }
 
+        public async Task<User> Update(int ID, UpdateUserDTO updateUser)
+        {
+            User user = await Find(ID);
+            Patcher.Patch(user, updateUser);
+            _context.Users.Update(user);
+            int result = await _context.SaveChangesAsync();
+            if (result != 1)
+            {
+                throw new NotUpdatedException("School couldn't be updated.");
+            }
+            return user;
+        }
 
 
         public async Task<User> FindManager(int ID)
