@@ -76,8 +76,8 @@ const ServiceBodyContainer = (props) => {
                         id={service.id}
                         name={service.name}
                         plaque={service.plaque}
-                        lastUpdate={service.time}
-                        status={service.date}
+                        time={service.time}
+                        date={service.date}
 
                         showEntries={props.showEntries}
                     />

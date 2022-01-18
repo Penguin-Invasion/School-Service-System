@@ -6,8 +6,16 @@ const ServiceBody = (props) => {
                 <tr>
                 <th >{props.name}</th>
                 <td> {props.plaque} </td>
-                <td> {props.lastUpdate} 12:45 </td>
-                <td> {props.status} 17/01 </td>
+                {
+                    props.showEntries ?
+                    <>
+                    <td> {props.time}</td>
+                    <td> {props.date}</td>
+                    </>
+                    :
+                    <>
+                    </>
+                }
                 
                 
                 </tr>
