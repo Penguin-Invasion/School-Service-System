@@ -22,7 +22,6 @@ const UserHeader = () => {
                 }
             })
             const body = await result.json()
-            console.log("body in admin navbar", body)
             setName(body.data.name + ' ' + body.data.surName)
 
         }
