@@ -43,30 +43,12 @@
       "fax": "123-456-7890"
     }
   ],
-<<<<<<< HEAD
   "drivers": [
     {
       "id": 0.2162784196542029,
       "name": "asdfsafa",
       "message": "1321321321",
       "driverName": "selaaam"
-=======
-  "login": [
-    {
-        "username": "admin",
-        "password": "123",
-        "type": "admin"
-    },
-    {
-        "username": "habil",
-        "password": "kalkan",
-        "type": "admin"
-    },
-    {
-        "username": "service",
-        "password": "321",
-        "type": "service"
->>>>>>> bf574a65383db00f25b361a9b492443aa24c7650
     }
   ]
 }
