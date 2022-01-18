@@ -37,6 +37,7 @@ const ServiceBodyContainer = (props) => {
 
 
             const body = await result.json()
+            console.log("all body? ", body)
 
             // if body.success is not true, then the user is not logged in
             if (!body.success) {
@@ -44,7 +45,7 @@ const ServiceBodyContainer = (props) => {
                 return;
             }
             
-            console.log(body.data[0].services)
+            console.log("all services",body.data[0].services)
 
             // declare an array to store the data
             const serviceEntries = []
@@ -56,7 +57,6 @@ const ServiceBodyContainer = (props) => {
                 const name = allServices[i].name
                 const plaque = allServices[i].plaque
                 const entries = await getEntries(body.data[0].id, allServices[i].id, token)
-                console.log("i: " + i + " name: " + name + " entries: " + entries)
 
                 for (let j = 0; j < entries.length; j++) {
                     serviceEntries.push({
@@ -72,9 +72,19 @@ const ServiceBodyContainer = (props) => {
 
             // sort serviceEntries by date and time
             serviceEntries.sort((a, b) => {
-                const dateA = new Date(a.date)
-                const dateB = new Date(b.date)
-                return dateB - dateA
+                // convert date to mm/dd/yyyy
+                // split date into array due to '/'
+                const dateA = a.date.split('/')
+                const dateB = b.date.split('/')
+                // split time into array due to ':'
+                const timeA = a.time.split(':')
+                const timeB = b.time.split(':')
+                console.log("time A", timeA)
+
+                const valueA = new Date(dateA[2], dateA[1], dateA[0], timeA[0], timeA[1], timeA[2])
+                const valueB = new Date(dateB[2], dateB[1], dateB[0], timeB[0], timeB[1], timeB[2])
+                
+                return valueB - valueA
             })
 
             
