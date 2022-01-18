@@ -14,7 +14,7 @@ const getEntries = async (schoolId, serviceId, token) => {
     })
 
     const body = await result.json()
-    console.log("body? ", body)
+    //console.log("body? ", body)
     return body.data.entries
 }
 
@@ -37,7 +37,7 @@ const ServiceBodyContainer = (props) => {
 
 
             const body = await result.json()
-            console.log("all body? ", body)
+            //console.log("all body? ", body)
 
             // if body.success is not true, then the user is not logged in
             if (!body.success) {
@@ -45,7 +45,7 @@ const ServiceBodyContainer = (props) => {
                 return;
             }
             
-            console.log("all services",body.data[0].services)
+            //console.log("all services",body.data[0].services)
 
             // declare an array to store the data
             const serviceEntries = []
@@ -79,7 +79,6 @@ const ServiceBodyContainer = (props) => {
                 // split time into array due to ':'
                 const timeA = a.time.split(':')
                 const timeB = b.time.split(':')
-                console.log("time A", timeA)
 
                 const valueA = new Date(dateA[2], dateA[1], dateA[0], timeA[0], timeA[1], timeA[2])
                 const valueB = new Date(dateB[2], dateB[1], dateB[0], timeB[0], timeB[1], timeB[2])
@@ -89,7 +88,7 @@ const ServiceBodyContainer = (props) => {
 
             
 
-            console.log("serviceEntries: ", serviceEntries)
+            //console.log("serviceEntries: ", serviceEntries)
             setServiceEntries(serviceEntries)
             setServiceBody(allServices)
 
@@ -109,6 +108,7 @@ const ServiceBodyContainer = (props) => {
                 return (
                     <ServiceBody
                         //key={service.id}
+                        key={service.id}
                         id={service.id}
                         name={service.name}
                         plaque={service.plaque}
@@ -125,7 +125,7 @@ const ServiceBodyContainer = (props) => {
             {serviceBody.map(service => {
                 return (
                     <ServiceBody
-                        //key={service.id}
+                        key={service.id}
                         id={service.id}
                         name={service.name}
                         plaque={service.plaque}
