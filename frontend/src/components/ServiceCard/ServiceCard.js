@@ -19,13 +19,14 @@ const renderSeeAll = (show) => {
     if (show === true)
     {
         return  <Button>
-                    <Link color="blue" to="/admin/tables">Tümünü Gör</Link>
+                    <Link color="blue" to="/admin/tables">Tüm Servisleri Gör</Link>
                 </Button>
     }
 }
 
 const showAllServices = (show) => {
-    return show ? <div className="penguin-table-body">
+    // className="penguin-table-body"
+    return show ? <div>
     <Table responsive>
         <ServiceBodyContainer/>
   </Table>
@@ -45,8 +46,19 @@ const ServiceCard = (props) => {
               <CardHeader className="border-0">
                 <Row className="align-items-center">
                 <div className="col">
-                    <h3 className="mb-0">Servis Bilgileri </h3>
-                    <p className="text-sm mb-0">Buradan Son Giriş Yapan Servisleri Görebilirsiniz</p>
+                    {
+                        // conditional rendering
+                        props.dashboard ?
+                        <>
+                            <h3 className="mb-0">Servis Giriş Çıkış Saatleri </h3>
+                            <p className="text-sm mb-0">Buradan Son Giriş Yapan Servisleri Görebilirsiniz</p>
+                        </>
+                        :
+                        <>
+                            <h3 className="mb-0">Tüm Ekli Servisler </h3>
+                            <p className="text-sm mb-0">Buradan Sisteminizdeki Tüm Servisleri Görebilirsiniz</p>
+                        </>
+                    }
                 </div>
                 <div className="col text-right">
                 {renderSeeAll(props.dashboard)}
@@ -57,10 +69,22 @@ const ServiceCard = (props) => {
               <Table className="align-items-center table-flush penguin-table-head" responsive>
                 <thead className="thead-light">
                   <tr>
-                    <th scope="col">Servis İsmi</th>
-                    <th scope="col">Plakası</th>
-                    <th scope="col">Saat</th>
-                    <th scope="col">Gün</th>
+                    {// conditional rendering
+                    props.dashboard ? 
+                    <>
+                        <th scope="col">Servis İsmi</th>
+                        <th scope="col">Plakası</th>
+                        <th scope="col">Saat</th>
+                        <th scope="col">Gün</th>
+                    </> : 
+                    <>
+                        <th scope="col">Servis İsmi</th>
+                        <th scope="col">Plakası</th>
+                        {/* <th scope="col">Saat</th>
+                        <th scope="col">Gün</th> */}
+                    </>
+                    
+                    }
                   </tr>
                 </thead>
                 </Table>
