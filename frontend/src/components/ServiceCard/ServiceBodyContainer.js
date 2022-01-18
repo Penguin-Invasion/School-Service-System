@@ -73,8 +73,8 @@ const ServiceBodyContainer = () => {
                     id={service.id}
                     name={service.name}
                     plaque={service.plaque}
-                    lastUpdate={service.lastUpdate}
-                    status={service.status}
+                    lastUpdate={service.time}
+                    status={service.date}
                 />
             )
         })}
