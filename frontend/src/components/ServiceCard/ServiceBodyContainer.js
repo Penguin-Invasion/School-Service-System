@@ -4,8 +4,9 @@ import { useState, useEffect } from 'react'
 
 import useToken from '../../useToken'
 
-const ServiceBodyContainer = () => {
+const ServiceBodyContainer = (props) => {
     const [serviceBody, setServiceBody] = useState([])
+    const [serviceEntries, setServiceEntries] = useState([])
     const { token } = useToken();
 
     // fetch data from the api
@@ -32,7 +33,7 @@ const ServiceBodyContainer = () => {
             console.log(body.data[0].services)
 
             // declare an array to store the data
-            const serviceBody = []
+            const serviceEntries = []
             
             const allServices = body.data[0].services
 
@@ -42,7 +43,7 @@ const ServiceBodyContainer = () => {
                 const entries = allServices[i].entries
 
                 for (let j = 0; j < entries.length; j++) {
-                    serviceBody.push({
+                    serviceEntries.push({
                         id: entries[j].id,
                         name: name,
                         time: entries[j].time,
@@ -52,33 +53,55 @@ const ServiceBodyContainer = () => {
                 }
             }
 
-            console.log("serviceBody: ", serviceBody)
+            console.log("serviceEntries: ", serviceEntries)
+            setServiceEntries(serviceEntries)
+            setServiceBody(allServices)
 
 
-            setServiceBody(serviceBody)
 
         }
 
         fetchData()
     }, [])
 
-
-
     return (
         <>
-        {serviceBody.map(service => {
-            return (
-                <ServiceBody
-                    //key={service.id}
-                    id={service.id}
-                    name={service.name}
-                    plaque={service.plaque}
-                    lastUpdate={service.time}
-                    status={service.date}
-                />
-            )
-        })}
+
+        {props.showEntries ?
+        <>
+            {serviceEntries.map(service => {
+                return (
+                    <ServiceBody
+                        //key={service.id}
+                        id={service.id}
+                        name={service.name}
+                        plaque={service.plaque}
+                        lastUpdate={service.time}
+                        status={service.date}
+
+                        showEntries={props.showEntries}
+                    />
+                )
+            })}
         </>
+        :
+        <>      
+            {serviceBody.map(service => {
+                return (
+                    <ServiceBody
+                        //key={service.id}
+                        id={service.id}
+                        name={service.name}
+                        plaque={service.plaque}
+
+                        showEntries={props.showEntries}
+                    />
+                )
+            })}
+        </>
+        }
+        </>
+        
     )
 }
 

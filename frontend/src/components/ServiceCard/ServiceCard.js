@@ -28,11 +28,11 @@ const showAllServices = (show) => {
     // className="penguin-table-body"
     return show ? <div>
     <Table responsive>
-        <ServiceBodyContainer/>
+        <ServiceBodyContainer showEntries={show}/>
   </Table>
   </div> : <div>
                 <Table responsive>
-                    <ServiceBodyContainer/>
+                    <ServiceBodyContainer showEntries={show}/>
               </Table>
               </div>
 } 
@@ -90,7 +90,11 @@ const ServiceCard = (props) => {
                 </Table>
               </div>
               
-              {showAllServices(props.dashboard)}
+              <div>
+                    <Table responsive>
+                        <ServiceBodyContainer showEntries={props.dashboard}/>
+                </Table>
+              </div>
             </Card>
           </Col>
         </Row>
