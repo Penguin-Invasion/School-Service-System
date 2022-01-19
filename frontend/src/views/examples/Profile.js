@@ -14,8 +14,23 @@ import { useState, useEffect } from 'react'
 
 import useToken from '../../useToken'
 
-const Profile = () => {
+const getSchool = async (token) => {
+    const result = await fetch('https://schoolservicesystem.azurewebsites.net/api/School', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        }
+    })
 
+    const body = await result.json()
+    //console.log("body? ", body)
+    return body.data[0]
+}
+
+const Profile = () => {
+    const [ serviceLength, setServiceLength ] = useState(0);
+    const [ schoolName, setSchoolName ] = useState("");
     const [ name, setName ] = useState('')
     const { token } = useToken();
 
@@ -34,6 +49,11 @@ const Profile = () => {
             //console.log("body in admin navbar", body)
             setName(body.data.name + ' ' + body.data.surName)
 
+            const school = await getSchool(token)
+            const serviceLength = school.services.length
+            const schoolName = school.name
+            setServiceLength(serviceLength)
+            setSchoolName(schoolName)
         }
 
         fetchData()
@@ -90,7 +110,7 @@ const Profile = () => {
                   <div className="col">
                     <div className="card-profile-stats d-flex justify-content-center mt-md-5">
                       <div>
-                        <span className="heading">2</span>
+                        <span className="heading"> {serviceLength} </span>
                         <span className="description">Servisler</span>
                       </div>
                       <div>
@@ -98,7 +118,7 @@ const Profile = () => {
                         <span className="description">Öğrenciler</span>
                       </div>
                       <div>
-                        <span className="heading">2</span>
+                        <span className="heading"> {serviceLength} </span>
                         <span className="description">Sürücüler</span>
                       </div>
                     </div>
@@ -108,17 +128,14 @@ const Profile = () => {
                   <h3>
                     {name}
                   </h3>
-                  <div className="h5 font-weight-300">
-                    <i className="ni location_pin mr-2" />
-                    Turkey, Istanbul
-                  </div>
+
                   <div className="h5 mt-4">
                     <i className="ni business_briefcase-24 mr-2" />
                     Manager
                   </div>
                   <div>
                     <i className="ni education_hat mr-2" />
-                    Gebze Technical University
+                    {schoolName}
                   </div>
                   <hr className="my-4" />
                   
