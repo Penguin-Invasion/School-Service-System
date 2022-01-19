@@ -55,7 +55,7 @@ const UserHeader = () => {
             <Col lg="7" md="10">
               <h1 className="display-2 text-white">Merhaba {name}</h1>
               <p className="text-white mt-0 mb-5">
-                This is your profile page. You can see your profile info and you can edit it. You can also see your image and can change it.
+                Bu ekranda, profil bilgilerinizi düzenleyebilirsiniz. Yeni servisler ekleyebilirsiniz. Yeni sürücüler ekleyebilirsiniz.
               </p>
               <div className="all-buttons">
                 <Link
@@ -64,7 +64,7 @@ const UserHeader = () => {
                     to="/admin/edit-profile"
                 >
                 <Button className="edit-profile">
-                    Edit profile
+                    Profili Düzenle
                 </Button>
                 </Link>
                 <Link

@@ -9,7 +9,7 @@ var routes = [
   {
     path: "/index",
     show: true,
-    name: "Dashboard",
+    name: "Panel",
     icon: "ni ni-tv-2 text-primary",
     component: Index,
     layout: "/admin",
@@ -17,7 +17,7 @@ var routes = [
   {
     path: "/user-profile",
     show: true,
-    name: "User Profile",
+    name: "Profilim",
     icon: "ni ni-single-02 text-yellow",
     component: Profile,
     layout: "/admin",
@@ -25,7 +25,7 @@ var routes = [
   {
     path: "/tables",
     show: true,
-    name: "Services",
+    name: "Tüm Servisler",
     icon: "ni ni-bullet-list-67 text-red",
     component: Tables,
     layout: "/admin",
