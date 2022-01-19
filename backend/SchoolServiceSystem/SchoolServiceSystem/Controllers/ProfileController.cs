@@ -18,8 +18,8 @@ namespace SchoolServiceSystem.Controllers
     public class ProfileController : ControllerBase
     {
         private readonly IMapper _mapper;
-        private readonly UserService _userService;
-        public ProfileController(IMapper mapper, UserService userService)
+        private readonly IUserService _userService;
+        public ProfileController(IMapper mapper, IUserService userService)
         {
             _mapper = mapper;
             _userService = userService;

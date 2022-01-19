@@ -23,9 +23,9 @@ namespace SchoolServiceSystem.Controllers
     public class ServiceController : ControllerBase
     {
         private readonly IMapper _mapper;
-        private readonly ServiceService _serviceService;
-        private readonly UserService _userService;
-        public ServiceController(IMapper mapper, ServiceService ServiceService, UserService userService)
+        private readonly IServiceService _serviceService;
+        private readonly IUserService _userService;
+        public ServiceController(IMapper mapper, IServiceService ServiceService, IUserService userService)
         {
             _mapper = mapper;
             _serviceService = ServiceService;

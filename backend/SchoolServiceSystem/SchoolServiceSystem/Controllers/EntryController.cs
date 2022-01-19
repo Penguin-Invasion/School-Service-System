@@ -16,9 +16,9 @@ namespace SchoolServiceSystem.Controllers
     public class EntryController : ControllerBase
     {
         private readonly IMapper _mapper;
-        private readonly EntryService _entryService;
+        private readonly IEntryService _entryService;
 
-        public EntryController(IMapper mapper, EntryService entryService)
+        public EntryController(IMapper mapper, IEntryService entryService)
         {
             _mapper = mapper;
             _entryService = entryService;

@@ -1,17 +1,17 @@
-﻿using AutoMapper;
-using SchoolServiceSystem.Data;
-using SchoolServiceSystem.Models;
+﻿using SchoolServiceSystem.Models;
+using SchoolServiceSystem.Services;
+using SchoolServiceSystem.Services.AuthService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SchoolServiceSystem.Services.AuthService
+namespace SchoolServiceSystem.FakeServices
 {
-    public class AuthService : IAuthService
+    public class FakeAuthService : IAuthService
     {
         private readonly IUserService _userService;
-        public AuthService(IUserService userService)
+        public FakeAuthService(IUserService userService)
         {
             _userService = userService;
         }
@@ -22,6 +22,5 @@ namespace SchoolServiceSystem.Services.AuthService
             User user = await _userService.Find(loginUser.Email, loginUser.Password);
             return user;
         }
-
     }
 }

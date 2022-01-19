@@ -13,13 +13,13 @@ using System.Threading.Tasks;
 
 namespace SchoolServiceSystem.Services
 {
-    public class ServiceService
+    public class ServiceService : IServiceService
     {
         private readonly DataContext _context;
         private readonly IMapper _mapper;
-        private readonly UserService _userService;
+        private readonly IUserService _userService;
 
-        public ServiceService(DataContext context, IMapper mapper, UserService userService)
+        public ServiceService(DataContext context, IMapper mapper, IUserService userService)
         {
             _context = context;
             _mapper = mapper;

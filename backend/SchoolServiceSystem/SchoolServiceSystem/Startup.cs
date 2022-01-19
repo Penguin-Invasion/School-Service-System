@@ -110,12 +110,12 @@ namespace SchoolServiceSystem
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-            services.AddScoped<SchoolService>();
-            services.AddScoped<UserService>();
-            services.AddScoped<TokenService>();
-            services.AddScoped<AuthService>();
-            services.AddScoped<ServiceService>();
-            services.AddScoped<EntryService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<ISchoolService, SchoolService>();
+            services.AddScoped<IServiceService, ServiceService>();
+            services.AddScoped<IEntryService, EntryService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

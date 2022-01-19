@@ -93,7 +93,7 @@ namespace SchoolServiceSystem.Data
                     {
                         ID = 1,
                         Name = "Test Servis1",
-                        Plaque = "34 A 0001",
+                        Plaque = "34A0001",
                         DriverID = 4,
                         SchoolID = 1
                     },
@@ -101,7 +101,7 @@ namespace SchoolServiceSystem.Data
                     {
                         ID = 2,
                         Name = "Test Servis2",
-                        Plaque = "34 A 0002",
+                        Plaque = "34A0002",
                         DriverID = 5,
                         SchoolID = 2
                     }

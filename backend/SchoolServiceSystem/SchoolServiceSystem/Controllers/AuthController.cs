@@ -21,10 +21,10 @@ namespace SchoolServiceSystem.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IMapper _mapper;
-        private readonly TokenService _tokenService;
-        private readonly AuthService _authService;
-        private readonly UserService _userService;
-        public AuthController(IMapper mapper, AuthService authService, TokenService tokenService, UserService userService)
+        private readonly ITokenService _tokenService;
+        private readonly IAuthService _authService;
+        private readonly IUserService _userService;
+        public AuthController(IMapper mapper, IAuthService authService, ITokenService tokenService, IUserService userService)
         {
             _mapper = mapper;
             _authService = authService;

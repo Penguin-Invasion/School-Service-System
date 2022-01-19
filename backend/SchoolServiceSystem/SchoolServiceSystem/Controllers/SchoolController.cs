@@ -20,10 +20,10 @@ namespace SchoolServiceSystem.Controllers
     public class SchoolController : ControllerBase
     {
         private readonly IMapper _mapper;
-        private readonly SchoolService _schoolService;
-        private readonly UserService _userService;
+        private readonly ISchoolService _schoolService;
+        private readonly IUserService _userService;
 
-        public SchoolController(IMapper mapper, SchoolService schoolService, UserService userService)
+        public SchoolController(IMapper mapper, ISchoolService schoolService, IUserService userService)
         {
             _mapper = mapper;
             _schoolService = schoolService;

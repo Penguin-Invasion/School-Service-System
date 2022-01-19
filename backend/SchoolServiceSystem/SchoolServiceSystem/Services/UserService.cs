@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace SchoolServiceSystem.Services
 {
-    public class UserService
+    public class UserService : IUserService
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly DataContext _context;

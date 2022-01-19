@@ -20,8 +20,8 @@ namespace SchoolServiceSystem.Controllers
     public class ManagerController : ControllerBase
     {
         private readonly IMapper _mapper;
-        private readonly UserService _userService;
-        public ManagerController(IMapper mapper, UserService userService)
+        private readonly IUserService _userService;
+        public ManagerController(IMapper mapper, IUserService userService)
         {
             _mapper = mapper;
             _userService = userService;

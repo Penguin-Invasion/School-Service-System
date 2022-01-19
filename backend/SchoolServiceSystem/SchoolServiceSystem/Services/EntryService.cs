@@ -1,23 +1,22 @@
-﻿
-
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using SchoolServiceSystem.Data;
 using SchoolServiceSystem.Models;
+using SchoolServiceSystem.Exceptions;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace SchoolServiceSystem.Services
 {
-    public class EntryService
+    public class EntryService : IEntryService
     {
         private readonly DataContext _context;
         private readonly IMapper _mapper;
-        private readonly ServiceService _serviceService;
-        private readonly SchoolService _schoolService;
+        private readonly IServiceService _serviceService;
+        private readonly ISchoolService _schoolService;
 
-        public EntryService(DataContext context, IMapper mapper, ServiceService serviceService, SchoolService schoolService)
+        public EntryService(DataContext context, IMapper mapper, IServiceService serviceService, ISchoolService schoolService)
         {
             _context = context;
             _mapper = mapper;
@@ -53,7 +52,7 @@ namespace SchoolServiceSystem.Services
             }
             catch (Exception)
             {
-                throw new NotFoundExpcetion();
+                throw new NotFoundException();
             }
 
 
