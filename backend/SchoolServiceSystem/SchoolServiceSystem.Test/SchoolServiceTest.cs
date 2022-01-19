@@ -38,7 +38,7 @@ namespace SchoolServiceSystem.Test
         public void CreateFail()
         {
             var result = _fakeSchoolService.Create(null).Result;
-            Assert.Equal(null, result);
+            Assert.Null(result);
         }
 
         [Fact]
@@ -82,14 +82,14 @@ namespace SchoolServiceSystem.Test
         public void Delete()
         {
             var result = _fakeSchoolService.Delete(2).Result;
-            Assert.Equal(true, result);
+            Assert.True(result);
         }
 
         [Fact]
         public void DeleteFail()
         {
             var result = _fakeSchoolService.Delete(8).Result;
-            Assert.NotEqual(true, result);
+            Assert.False(result);
         }
     }
 }
