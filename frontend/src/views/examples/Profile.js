@@ -90,16 +90,16 @@ const Profile = () => {
                   <div className="col">
                     <div className="card-profile-stats d-flex justify-content-center mt-md-5">
                       <div>
-                        <span className="heading">22</span>
-                        <span className="description">Services</span>
+                        <span className="heading">2</span>
+                        <span className="description">Servisler</span>
                       </div>
                       <div>
                         <span className="heading">10</span>
-                        <span className="description">Students</span>
+                        <span className="description">Öğrenciler</span>
                       </div>
                       <div>
-                        <span className="heading">89</span>
-                        <span className="description">Driver</span>
+                        <span className="heading">2</span>
+                        <span className="description">Sürücüler</span>
                       </div>
                     </div>
                   </div>
