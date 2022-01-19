@@ -1,18 +1,18 @@
 {
   "files": {
     "main.css": "/School-Service-System/static/css/main.5ba19f4f.chunk.css",
-    "main.js": "/School-Service-System/static/js/main.6912ed2e.chunk.js",
-    "main.js.map": "/School-Service-System/static/js/main.6912ed2e.chunk.js.map",
+    "main.js": "/School-Service-System/static/js/main.4880c053.chunk.js",
+    "main.js.map": "/School-Service-System/static/js/main.4880c053.chunk.js.map",
     "runtime-main.js": "/School-Service-System/static/js/runtime-main.6dede6ca.js",
     "runtime-main.js.map": "/School-Service-System/static/js/runtime-main.6dede6ca.js.map",
     "static/css/2.0f2d53eb.chunk.css": "/School-Service-System/static/css/2.0f2d53eb.chunk.css",
-    "static/js/2.b172199c.chunk.js": "/School-Service-System/static/js/2.b172199c.chunk.js",
-    "static/js/2.b172199c.chunk.js.map": "/School-Service-System/static/js/2.b172199c.chunk.js.map",
+    "static/js/2.144c82b9.chunk.js": "/School-Service-System/static/js/2.144c82b9.chunk.js",
+    "static/js/2.144c82b9.chunk.js.map": "/School-Service-System/static/js/2.144c82b9.chunk.js.map",
     "index.html": "/School-Service-System/index.html",
     "static/css/2.0f2d53eb.chunk.css.map": "/School-Service-System/static/css/2.0f2d53eb.chunk.css.map",
     "static/css/main.5ba19f4f.chunk.css.map": "/School-Service-System/static/css/main.5ba19f4f.chunk.css.map",
-    "static/js/2.b172199c.chunk.js.LICENSE.txt": "/School-Service-System/static/js/2.b172199c.chunk.js.LICENSE.txt",
-    "static/js/main.6912ed2e.chunk.js.LICENSE.txt": "/School-Service-System/static/js/main.6912ed2e.chunk.js.LICENSE.txt",
+    "static/js/2.144c82b9.chunk.js.LICENSE.txt": "/School-Service-System/static/js/2.144c82b9.chunk.js.LICENSE.txt",
+    "static/js/main.4880c053.chunk.js.LICENSE.txt": "/School-Service-System/static/js/main.4880c053.chunk.js.LICENSE.txt",
     "static/media/argon-react-white.png": "/School-Service-System/static/media/argon-react-white.2167595e.png",
     "static/media/argon-react.png": "/School-Service-System/static/media/argon-react.2167595e.png",
     "static/media/all.min.css": "/School-Service-System/static/media/fa-solid-900.efbd5d20.eot",
@@ -23,8 +23,8 @@
   "entrypoints": [
     "static/js/runtime-main.6dede6ca.js",
     "static/css/2.0f2d53eb.chunk.css",
-    "static/js/2.b172199c.chunk.js",
+    "static/js/2.144c82b9.chunk.js",
     "static/css/main.5ba19f4f.chunk.css",
-    "static/js/main.6912ed2e.chunk.js"
+    "static/js/main.4880c053.chunk.js"
   ]
 }
