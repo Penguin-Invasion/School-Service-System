@@ -121,23 +121,14 @@ const Login = ({setToken}) => {
           </CardBody>
         </Card>
         <Row className="mt-3">
-          <Col xs="6">
-            <a
-              className="text-light"
-              href="#pablo"
-              onClick={(e) => e.preventDefault()}
-            >
-              <small>Forgot password?</small>
-            </a>
+          <Col xs="10">
+              <p className="text-light">Şifrenizi unuttuysanız bize ulaşabilirsiniz. destek@penguin-invasion.com</p>
           </Col>
-          <Col className="text-right" xs="6">
-            <a
-              className="text-light"
-              href="#pablo"
-              onClick={(e) => e.preventDefault()}
-            >
-              <small>Create new account</small>
-            </a>
+        </Row>
+        <Row>
+        <Col>
+              <p className="text-light">Okulunuzda sistemimizi kullanmak isterseniz yazabilirsiniz. isbirligi@penguin-invasion.com</p>
+            
           </Col>
         </Row>
       </Col>

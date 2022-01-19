@@ -16,36 +16,41 @@ import {
   import UserHeader from "components/Headers/UserHeader.js";
   import { useState, useEffect } from "react";
 
+  import useToken from '../../useToken'
+
   const Profile = () => {
 
-    const [userName, setUserName] = useState('');
+    const [password, setPassword] = useState('');
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [lastName, setLastName] = useState('');
 
+    const { token } = useToken();
+
     function handleSubmit(event) {
       event.preventDefault();
       console.log('name:', name);
-      console.log('email:', email);
       console.log('lastName:', lastName);
-      console.log('userName:', userName);
+      console.log('email:', email);
+      console.log('password:', password);
 
 
       editProf({
-       "id"  : Math.random(),
        "name":name,
+       "surName":lastName,
        "email":email,
-       "lastName":lastName,
-       "userName:": userName
+       "password:": password
      });
     }
 
     async function editProf(credentials) {
-        return fetch('http://localhost:3001/users', {
-          method: 'post',//patch yapilip degere gore yapilcak not know clearly so post yaptim
+        return fetch('https://schoolservicesystem.azurewebsites.net/api/Profile', {
+          method: 'PATCH',
           headers: {
+            // set token
+            'Authorization': 'Bearer ' + token,
             'Content-Type': 'application/json'
-          },
+            },
           body: JSON.stringify(credentials)
         })
           .then(data => data.json())
@@ -66,17 +71,6 @@ import {
 
                 <CardBody>
                 <form >
-                    <div className="mb-3" >
-                        <label htmlFor="userName">Kullanici Adi</label>
-                        <input
-                        className="form-control"
-                        id="userName"
-                        type="text"
-                        value={userName}
-                        onChange={(e) => setUserName(e.target.value)}
-                        />
-                    </div>
-
                     <div className="mb-3" >
                         <label htmlFor="name">Isim</label>
                         <input
@@ -107,6 +101,17 @@ import {
                         onChange={(e) => setEmail(e.target.value)}
                         />
                     </div>
+                    <div className="mb-3" >
+                        <label htmlFor="userName">Yeni Şifre</label>
+                        <input
+                        className="form-control"
+                        id="userName"
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        />
+                    </div>
+
                     <div>
                         <button type="submit" onClick={handleSubmit}   >Submit</button>
                     </div>
