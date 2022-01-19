@@ -62,9 +62,12 @@ import {
             <Col className="order-xl-1" xl="8">
               <Card className="bg-secondary shadow">
                 <form >
-                    <div>
-                        <label htmlFor="name">Surucu Adi</label>
+
+
+                    <div className="mb-3" >
+                        <label htmlFor="driverName">Surucu Adi</label>
                         <input
+                        className="form-control"
                         id="driverName"
                         type="text"
                         value={driverName}
@@ -72,24 +75,29 @@ import {
                         />
                     </div>
 
-                    <div>
+                    <div className="mb-3" >
                         <label htmlFor="name">Servis Plakasi</label>
                         <input
+                        className="form-control"
                         id="name"
                         type="text"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         />
                     </div>
-                    <div>
+                    <div className="mb-3" >
                         <label htmlFor="message">Message</label>
                         <textarea
+                        className="form-control"
                         id="message"
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}
                         />
                     </div>
-                    <button type="submit" onClick={handleSubmit}>Submit</button>
+                    <div>
+                        <button type="submit" onClick={handleSubmit}   >Submit</button>
+                    </div>
+
                 </form>
               </Card>
             </Col>
