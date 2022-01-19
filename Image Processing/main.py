@@ -128,18 +128,17 @@ while True:
         if(isPlate(scannedText)): 
             showPlateInfo(scannedText)
             cv2.rectangle(img,(Rect[0],Rect[1]),(Rect[0] + Rect[2],Rect[1] + Rect[3]),(0,255,0),2)
-            scannedText = "34A1234"
             if(scannedText in plateList[1]):
                 for i in range(len(plateList[1])):
                     if(plateList[1][i] == scannedText):
                         if( time.time() - plateList[0][i] > 60): 
                             plateList[0][i] = time.time()
-                            requests.post("https://ce781c9c20994b.localhost.run/api/entry?SecretKey=737VI4Z8BZK1TOEMV3WOB9WNU9LGQ1&Plaque=" + scannedText)
+                            requests.post("https://schoolservicesystem.azurewebsites.net/api/Entry?SecretKey=RKF6GUMC84WH2BRM7FRLOK67WWRSZG&Plaque=" + scannedText)
                             break
             else:
                 plateList[0].append(time.time())
                 plateList[1].append(scannedText)
-                requests.post("https://ce781c9c20994b.localhost.run/api/entry?SecretKey=737VI4Z8BZK1TOEMV3WOB9WNU9LGQ1&Plaque=" + scannedText)
+                requests.post("https://schoolservicesystem.azurewebsites.net/api/Entry?SecretKey=RKF6GUMC84WH2BRM7FRLOK67WWRSZG&Plaque=" + scannedText)
     guimage = ImageTk.PhotoImage(image=convertImage(img)) 
     Label(window,image=guimage,bg = "#000000",borderwidth=0,highlightthickness=0).place(x=600,y=50)
     window.update()
