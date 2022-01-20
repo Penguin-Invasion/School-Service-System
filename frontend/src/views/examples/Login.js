@@ -10,6 +10,8 @@ import {
   InputGroup,
   Row,
   Col,
+  Button,
+  Input,
 } from "reactstrap";
 import { data } from "jquery";
 
@@ -99,7 +101,12 @@ const Login = ({setToken}) => {
                       <i className="ni ni-email-83" />
                     </InputGroupText>
                   </InputGroupAddon>
-                  <input placeholder="Email" type="text" onChange={e => setUserName(e.target.value)} />
+                  <Input
+                    placeholder="Email"
+                    type="text"
+                    autoComplete="new-email"
+                    onChange={e => setUserName(e.target.value)}
+                  />
                 </InputGroup>
               </FormGroup>
               <FormGroup>
@@ -109,12 +116,19 @@ const Login = ({setToken}) => {
                       <i className="ni ni-lock-circle-open" />
                     </InputGroupText>
                   </InputGroupAddon>
-                  <input placeholder="Password" type="password" onChange={e => setPassword(e.target.value)} />
+                  <Input
+                    placeholder="Şifre"
+                    type="password"
+                    
+                    onChange={e => setPassword(e.target.value)}
+                  />
                 </InputGroup>
               </FormGroup>
               
               <div className="text-center">
-                <button className="my-4" color="primary" type="submit">Sign in</button>
+                    <Button type="submit" className="add-service">
+                        Giriş Yap
+                    </Button>
               </div>
             </form>
 
