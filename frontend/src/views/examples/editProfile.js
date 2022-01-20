@@ -34,13 +34,17 @@ import {
       console.log('email:', email);
       console.log('password:', password);
 
+      // create a credentials object
+    const credentials = {}
+        // add the values to the credentials object
+        // if values are not empty
+        if (name) credentials.name = name;
+        if (lastName) credentials.surName = lastName;
+        if (email) credentials.email = email;
+        if (password) credentials.password = password;
 
-      editProf({
-       "name":name,
-       "surName":lastName,
-       "email":email,
-       "password:": password
-     });
+        console.log('credentials:', credentials);
+      editProf(credentials);
     }
 
     async function editProf(credentials) {
@@ -113,7 +117,10 @@ import {
                     </div>
 
                     <div>
-                        <button type="submit" onClick={handleSubmit}   >Submit</button>
+                       
+                    <Button onClick={handleSubmit} className="add-service">
+                        Gönder
+                    </Button>
                     </div>
 
                 </form>
