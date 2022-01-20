@@ -102,7 +102,7 @@ const Login = ({setToken}) => {
                     </InputGroupText>
                   </InputGroupAddon>
                   <Input
-                    placeholder="Email"
+                    placeholder="Email veya Kullanıcı Adı"
                     type="text"
                     autoComplete="new-email"
                     onChange={e => setUserName(e.target.value)}
