@@ -28,7 +28,7 @@ import {
     const { token } = useToken();
 
     function handleSubmit(event) {
-      event.preventDefault();
+      //event.preventDefault();
       console.log('name:', name);
       console.log('lastName:', lastName);
       console.log('email:', email);
@@ -73,7 +73,7 @@ import {
             <Col className="order-xl-1" xl="8">
               <Card className="bg-secondary shadow">
                 <CardBody>
-                <form >
+                <form onSubmit={handleSubmit}>
                 <p>Bu ekrandan, bilgilerinizi güncelleyebilirsiniz. Sadece değişmesini istdiğiniz bilgileri gönderebilirsiniz.</p>
                     <div className="mb-3" >
                         <label htmlFor="name">Isim</label>
@@ -118,7 +118,7 @@ import {
 
                     <div>
                        
-                    <Button onClick={handleSubmit} className="add-service">
+                    <Button type="submit" className="add-service">
                         Gönder
                     </Button>
                     </div>
