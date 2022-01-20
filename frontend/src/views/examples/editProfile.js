@@ -72,9 +72,9 @@ import {
           <Row>
             <Col className="order-xl-1" xl="8">
               <Card className="bg-secondary shadow">
-
                 <CardBody>
                 <form >
+                <p>Bu ekrandan, bilgilerinizi güncelleyebilirsiniz. Sadece değişmesini istdiğiniz bilgileri gönderebilirsiniz.</p>
                     <div className="mb-3" >
                         <label htmlFor="name">Isim</label>
                         <input
