@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import useToken from '../../useToken'
 
 
-
+import ServiceBody from "components/ServiceCard/ServiceBody";
 
                 
 
@@ -30,15 +30,18 @@ const ServiceInfo = (props) => {
     const [ serviceName, setServiceName ] = useState('');
     const [ servicePlaque, setServicePlaque ] = useState('');
     const [ driverName, setDriverName] = useState('');
+    const [ serviceEntries, setServiceEntries ] = useState([]);
     const [ students, setStudents ] = useState([]);
     const { token } = useToken();
 
     const [ renderStudent, setRenderStudent ] = useState(false);
+    const [ renderEntries, setRenderEntries ] = useState(false);
 
     const schoolId = props.match.params.schoolId;
     const serviceId = props.match.params.id;
 
     const [ buttonValue, setButtonValue ] = useState('Yeni Öğrenci Ekle');
+    const [ showServiceEntriesButtonValue, setShowServiceEntriesButtonValue ] = useState('Giriş Çıkış Listesini Göster');
 
     const [ studentName, setStudentName ] = useState('');
     const [ studentSurname, setStudentSurname ] = useState('');
@@ -61,6 +64,26 @@ const ServiceInfo = (props) => {
             setServicePlaque(body.data.plaque);
             setDriverName(body.data.driver.name + ' ' + body.data.driver.surName);
             setStudents(body.data.students);
+
+            const serviceEntries = body.data.entries;
+
+            // sort serviceEntries by date and time
+            serviceEntries.sort((a, b) => {
+                // convert date to mm/dd/yyyy
+                // split date into array due to '/'
+                const dateA = a.date.split('/')
+                const dateB = b.date.split('/')
+                // split time into array due to ':'
+                const timeA = a.time.split(':')
+                const timeB = b.time.split(':')
+
+                const valueA = new Date(dateA[2], dateA[1], dateA[0], timeA[0], timeA[1], timeA[2])
+                const valueB = new Date(dateB[2], dateB[1], dateB[0], timeB[0], timeB[1], timeB[2])
+                
+                return valueB - valueA
+            })
+
+            setServiceEntries(serviceEntries);
         }
     
     }
@@ -76,6 +99,16 @@ const ServiceInfo = (props) => {
         }
         else {
             setButtonValue('Yeni Öğrenci Ekle');
+        }
+    }
+
+    const renderServiceEntries = () => {
+        setRenderEntries(!renderEntries);
+        if (!renderEntries) {
+            setShowServiceEntriesButtonValue('Giriş Çıkış Listesini Göster');
+        }
+        else {
+            setShowServiceEntriesButtonValue('Giriş Çıkış Listesini Gizle');
         }
     }
 
@@ -109,9 +142,6 @@ const ServiceInfo = (props) => {
 
         const body = await result.json()
     }
-
-
-
 
 
 
@@ -150,6 +180,27 @@ const ServiceInfo = (props) => {
             <p> {driverName} </p>
         </div>
         
+        <Button onClick={renderServiceEntries} color="primary" size="sm">{showServiceEntriesButtonValue}</Button>
+        {renderEntries && <>
+            <Table>
+                <thead>
+                    <tr>
+                        <th className="very-light-color">Saat</th>
+                        <th className="very-light-color">Tarih</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {serviceEntries.map((entry, index) => {
+                        return (
+                            <tr key={index}>
+                                <td className="very-light-color">{entry.time}</td>
+                                <td className="very-light-color">{entry.date}</td>
+                            </tr>
+                        )
+                    })}
+                </tbody>
+            </Table>
+        </>}
 
         </div>
     <CardHeader className="table-head-color-student border-0">
