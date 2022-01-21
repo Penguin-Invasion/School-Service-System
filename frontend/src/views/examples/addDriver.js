@@ -16,134 +16,215 @@ import {
   import UserHeader from "components/Headers/UserHeader.js";
   import { useState, useEffect } from "react";
 
-  const Profile = () => {
+  
+import useToken from '../../useToken'
+
+const getSchool = async (credentials, token) => {
+    const result = await fetch('https://schoolservicesystem.azurewebsites.net/api/School', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        }
+    })
+
+    const body = await result.json()
+    //console.log("body? ", body)
+    if (body.success) {
+        createDriver(credentials, token, body.data[0].id);
+    }
+
+}
+
+
+async function createDriver(credentials, token, schoolID) {
+    // create driver object
+    const driver = {}
+    driver.name = credentials.name;
+    driver.surName = credentials.surName; 
+    driver.email = "email@gmail.com";
+    driver.password = "password";
+    const service = {}
+    service.name = credentials.serviceName;
+    service.plaque = credentials.plaque;
+
+
+    const response = await fetch('https://schoolservicesystem.azurewebsites.net/api/Manager/CreateDriver', {
+        method: 'POST',
+        headers: {
+            // set token
+            'Authorization': 'Bearer ' + token,
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS'
+            },
+        body: JSON.stringify(driver)
+    })
+    const body  = await response.json();
+
+
+    // if body.status success, call createService func
+    if (body.success) {
+        service.schoolID = schoolID;
+        service.driverID = body.data.id;
+        createService(service, token);
+    }
+}
+
+async function createService(service, token) {
+
+    const response = await fetch('https://schoolservicesystem.azurewebsites.net/api/School/' + service.schoolID + '/Service', {
+        method: 'POST',
+        headers: {
+            // set token
+            'Authorization': 'Bearer ' + token,
+            'Content-Type': 'application/json'
+            },
+        body: JSON.stringify(service)
+    })
+    //const body  = await response.json();
+    //console.log("add service response:", body);
+    
+}
+
+const Profile = () => {
+    
+    const { token } = useToken();
+    
     const [driverName, setDriverName] = useState('');
     const [driverLastName, setDriverLastName] = useState('');
     const [plaque, setPlaque] = useState('');
+    const [serviceName, setServiceName] = useState('');
 
 
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [message, setMessage] = useState('');
+    function handleSubmit(event) {
+        event.preventDefault();
+        // console.log('driverName:', driverName);
+        // console.log('driverLastName:', driverLastName);
+        // console.log('serviceName:', serviceName);
+        // console.log('plaque:', plaque);
 
-  function handleSubmit(event) {
-    event.preventDefault();
-    console.log('name:', name);
-    console.log('message:', message);
-    console.log('driverName:', driverName);
+        // create a credentials object
+        const credentials = {}
+        // add the values to the credentials object
+        // if values are not empty
+        if (driverName) credentials.name = driverName;
+        if (driverLastName) credentials.surName = driverLastName;
+        if (plaque) credentials.plaque = plaque;
+        if (serviceName) credentials.serviceName = serviceName;
 
-    createService({
-      "id":Math.random(),
-     "name":name,
-     "message":message,
-     "driverName":driverName
-   });
-  }
-
-  async function createService(credentials) {
-      return fetch('http://localhost:3001/drivers', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(credentials)
-      })
-        .then(data => data.json())
-  }
-
+        getSchool(credentials, token);
+    }
 
 
     return (
-      <>
+        <>
         <UserHeader />
         {/* Page content */}
         <Container className="mt--7  " fluid>
-          <Row>
+            <Row>
             <Col className="order-xl-1" xl="8">
             <CardHeader className="bg-white border-0">
-                  <Row className="align-items-center">
+                    <Row className="align-items-center">
                     <Col xs="8">
-                      <h3 className="mb-0">Sürücü ve Servis Ekle</h3>
+                        <h3 className="mb-0">Sürücü ve Servis Ekle</h3>
                     </Col>
                     
-                  </Row>
+                    </Row>
                 </CardHeader>
-              <Card className="bg-secondary shadow">
+                <Card className="bg-secondary shadow">
                 <CardBody>
                 <form onSubmit={handleSubmit}>
                 <h6 className="heading-small text-muted mb-4">
                 Bu ekrandan, yeni sürücü ve plakasını ekleyebilirsiniz.
                 </h6>
                 <div className="pl-lg-4">
-                      <Row>
+                        <Row>
                         <Col lg="6">
-                          <FormGroup>
+                            <FormGroup>
                             <label
-                              className="form-control-label"
-                              htmlFor="input-username"
+                                className="form-control-label"
+                                htmlFor="input-username"
                             >
                                 Sürücü Adı
                             </label>
                             <Input
-                              className="form-control-alternative"
-                              id="name"
-                              placeholder="Ad"
+                                className="form-control-alternative"
+                                id="name"
+                                placeholder="Ad"
                             type="text"
                             value={driverName}
                             onChange={(e) => setDriverName(e.target.value)}
                             />
-                          </FormGroup>
+                            </FormGroup>
                         </Col>
                         <Col lg="6">
                         <FormGroup>
                             <label
-                              className="form-control-label"
-                              htmlFor="input-last-name"
+                                className="form-control-label"
+                                htmlFor="input-last-name"
                             >
-                              Sürücü Soyadı
+                                Sürücü Soyadı
                             </label>
                             <Input
-                              className="form-control-alternative"
-                              
-                              placeholder="Soyad"
-                              id="lastName"
+                                className="form-control-alternative"
+                                
+                                placeholder="Soyad"
+                                id="lastName"
                             type="text"
                             value={driverLastName}
                             onChange={(e) => setDriverLastName(e.target.value)}
                             />
-                          </FormGroup>
+                            </FormGroup>
                         </Col>
-                      </Row>
-                      <Row>
+                        </Row>
+                        <Row>
                         <Col lg="6">
                         <FormGroup>
                             <label
-                              className="form-control-label"
-                              htmlFor="input-email"
+                                className="form-control-label"
+                                htmlFor="input-email"
                             >
-                              Plaka
+                                Servis Adı
                             </label>
                             <Input
-                              className="form-control-alternative"
-                              id="input-email"
-                              placeholder="34ABC25"
-                              type="text"
-                              id="email"
-                                value={plaque}
-                                onChange={(e) => setPlaque(e.target.value)}
-                              
+                                className="form-control-alternative"
+                                id="input-email"
+                                placeholder="34ABC25"
+                                type="text"
+                                id="email"
+                                value={serviceName}
+                                onChange={(e) => setServiceName(e.target.value)}
+                                
                             />
-                          </FormGroup>
+                            </FormGroup>
                         </Col>
                         <Col lg="6">
-                          
+                        <FormGroup>
+                            <label
+                                className="form-control-label"
+                                htmlFor="input-email"
+                            >
+                                Plaka
+                            </label>
+                            <Input
+                                className="form-control-alternative"
+                                id="input-email"
+                                placeholder="34ABC25"
+                                type="text"
+                                id="email"
+                                value={plaque}
+                                onChange={(e) => setPlaque(e.target.value)}
+                                
+                            />
+                            </FormGroup>
                         </Col>
-                      </Row>
+                        </Row>
                     </div>
 
 
                     <div>
-                       
+                        
                     <Button type="submit" className="add-service">
                         Gönder
                     </Button>
@@ -151,12 +232,12 @@ import {
 
                 </form>
                 </CardBody>
-              </Card>
+                </Card>
             </Col>
-          </Row>
+            </Row>
         </Container>
-      </>
+        </>
     );
-  };
+};
 
-  export default Profile;
+export default Profile;
