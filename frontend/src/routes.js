@@ -5,6 +5,8 @@ import Tables from "views/examples/Tables.js";
 import EditProfile from "views/examples/editProfile.js";
 import AddService from "views/examples/addService.js";
 import AddDriver from "views/examples/addDriver.js";
+import ServiceInfo from "views/examples/ServiceInfo.js";
+
 var routes = [
   {
     path: "/index",
@@ -54,7 +56,22 @@ var routes = [
     component: AddService,
     layout: "/admin",
   },
-  ,
+  {
+    path: "/edit-profile",
+    show: false,
+    name: "Edit Profile",
+    icon: "ni ni-key-25 text-info",
+    component: EditProfile,
+    layout: "/admin",
+  },
+  {
+    path: "/service-info",
+    show: false,
+    name: "Service Info",
+    icon: "ni ni-key-25 text-info",
+    component: ServiceInfo,
+    layout: "/admin",
+  },
   {
     path: "/add-Driver",
     show: false,
