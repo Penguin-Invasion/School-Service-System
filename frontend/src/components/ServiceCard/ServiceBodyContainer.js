@@ -111,6 +111,24 @@ const ServiceBodyContainer = (props) => {
         fetchData()
     }, [])
 
+    // if showEntries true, refresh the page to show the entries without using useEffect
+    const refresh = () => {
+        if (props.showEntries) {
+    
+            window.location.reload(false)
+        }
+    }
+
+    // call refresh function every 5 seconds
+    useEffect(() => {
+        const interval = setInterval(() => {
+            refresh()
+        }, 10000);
+        return () => clearInterval(interval);
+    }, [])
+
+
+
     return (
         <>
 

@@ -56,8 +56,6 @@ function timeout(delay) {
             setEditStatus(-1);
         } else {
             setEditStatus(1);
-            // set timeout
-            console.log("reload?")
 
         }
         
@@ -89,7 +87,6 @@ function timeout(delay) {
 
     const  refresh = async () => {
 
-        console.log("ref inside:", editStatus);
         if (editStatus === 1 || editStatus === 0) {
 
             await new Promise(resolve => setTimeout(resolve, 1100));
