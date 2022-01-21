@@ -14,6 +14,19 @@ import { useState, useEffect } from 'react'
 
 import useToken from '../../useToken'
 
+const getStudentCount = async (schoolId, serviceId, token) => {
+    const result = await fetch('https://schoolservicesystem.azurewebsites.net/api/School/' + schoolId + '/Service/' + serviceId, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        }
+    })
+
+    const body = await result.json()
+    return body.data.students.length
+}
+
 const getSchool = async (token) => {
     const result = await fetch('https://schoolservicesystem.azurewebsites.net/api/School', {
         method: 'GET',
@@ -32,6 +45,7 @@ const Profile = () => {
     const [ serviceLength, setServiceLength ] = useState(0);
     const [ schoolName, setSchoolName ] = useState("");
     const [ name, setName ] = useState('')
+    const [ studentCount, setStudentCount ] = useState(0);
     const { token } = useToken();
 
     // fetch data from the api
@@ -52,8 +66,18 @@ const Profile = () => {
             const school = await getSchool(token)
             const serviceLength = school.services.length
             const schoolName = school.name
+            const allServices = school.services
+            let allStudents = 0;
+
+            // loop through the services and push the data into the array
+            for (let i = 0; i < allServices.length; i++) {
+                const id = allServices[i].id
+                allStudents += await getStudentCount(school.id, id, token)
+            }
+
             setServiceLength(serviceLength)
             setSchoolName(schoolName)
+            setStudentCount(allStudents)
         }
 
         fetchData()
@@ -114,13 +138,14 @@ const Profile = () => {
                         <span className="description">Servisler</span>
                       </div>
                       <div>
-                        <span className="heading">10</span>
-                        <span className="description">Öğrenciler</span>
-                      </div>
-                      <div>
                         <span className="heading"> {serviceLength} </span>
                         <span className="description">Sürücüler</span>
                       </div>
+                      <div>
+                        <span className="heading">{ studentCount }</span>
+                        <span className="description">Öğrenciler</span>
+                      </div>
+                      
                     </div>
                   </div>
                 </Row>

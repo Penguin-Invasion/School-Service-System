@@ -2,6 +2,21 @@ import { Card, CardBody, CardTitle, Container, Row, Col } from "reactstrap";
 import { useState, useEffect } from 'react'
 import useToken from '../../useToken'
 
+const getStudentCount = async (schoolId, serviceId, token) => {
+    const result = await fetch('https://schoolservicesystem.azurewebsites.net/api/School/' + schoolId + '/Service/' + serviceId, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        }
+    })
+
+    const body = await result.json()
+    console.log("body? ", body.data.students)
+    return body.data.students.length
+}
+
+
 const Header = () => {
     const [serviceLength, setServiceLength ] = useState(0);
     const [ studentCount, setStudentCount ] = useState(0);
@@ -20,8 +35,18 @@ const Header = () => {
             })
             const body = await result.json()
             console.log("school data:", body);
+            const schoolId = body.data[0].id
+            const allServices = body.data[0].services
+            let allStudents = 0;
+            // loop through the services and push the data into the array
+            for (let i = 0; i < allServices.length; i++) {
+                const id = allServices[i].id
+
+                allStudents += await getStudentCount(schoolId, id, token)
+            }
+
             setServiceLength(body.data[0].services.length)
-            setStudentCount(6)
+            setStudentCount(allStudents)
         }
 
         fetchData()
