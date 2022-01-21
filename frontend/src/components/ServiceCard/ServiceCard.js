@@ -51,12 +51,12 @@ const ServiceCard = (props) => {
                         props.dashboard ?
                         <>
                             <h3 className="mb-0">Servis Giriş Çıkış Saatleri </h3>
-                            <p className="text-sm mb-0">Buradan Son Giriş Yapan Servisleri Görebilirsiniz</p>
+                            <p className="text-sm mb-0">Buradan Son Giriş Yapan Servisleri Görebilirsiniz. Dilediğiniz servise tıklayarak, servis bilgilerini görebilirsiniz.</p>
                         </>
                         :
                         <>
                             <h3 className="mb-0">Tüm Ekli Servisler </h3>
-                            <p className="text-sm mb-0">Buradan Sisteminizdeki Tüm Servisleri Görebilirsiniz</p>
+                            <p className="text-sm mb-0">Buradan Sisteminizdeki Tüm Servisleri Görebilirsiniz. Dilediğiniz servis ismine tıklayarak, servis bilgilerini görebilirsiniz</p>
                         </>
                     }
                 </div>
