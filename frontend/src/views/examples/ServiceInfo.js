@@ -29,6 +29,20 @@ const a = async (schoolId, serviceId, token)  => {
 
 }
 
+const deleteService = async (schoolId, serviceId, token) => {
+    const result = await fetch('https://schoolservicesystem.azurewebsites.net/api/School/' + schoolId + '/Service/' + serviceId, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        }
+    })
+
+    const body = await result.json()
+
+    console.log("log?")
+}
+
 
 const ServiceInfo = (props) => {
     const [ serviceName, setServiceName ] = useState('');
@@ -80,7 +94,7 @@ const ServiceInfo = (props) => {
             <p>Bu ekrandan, servis bilgielrine bakabilir, servisi silebilir ve yeni öğrenciler ekleyebilirsiniz.</p>
         </Col>
         <Col className="text-right" xs="4">
-            <Button color="warning" size="sm">Servisi Kaldır</Button>
+            <Button onClick={() => deleteService(schoolId, serviceId, token)} color="warning" size="sm">Servisi Kaldır</Button>
         </Col>
         </Row>
         </CardHeader>
