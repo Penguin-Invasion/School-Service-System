@@ -8,6 +8,7 @@ import useToken from '../../useToken'
 
 
 import ServiceBody from "components/ServiceCard/ServiceBody";
+import { Link } from "react-router-dom";
 
                 
 
@@ -171,7 +172,9 @@ const ServiceInfo = (props) => {
             <p>Bu ekrandan, servis bilgielrine bakabilir, servisi silebilir ve yeni öğrenciler ekleyebilirsiniz.</p>
         </Col>
         <Col className="text-right" xs="4">
+            <Link to={'/admin'}>
             <Button onClick={() => deleteService(schoolId, serviceId, token)} color="warning" size="sm">Servisi Kaldır</Button>
+            </Link>
         </Col>
         
         </Row>
