@@ -12,7 +12,6 @@ const getStudentCount = async (schoolId, serviceId, token) => {
     })
 
     const body = await result.json()
-    console.log("body? ", body.data.students)
     return body.data.students.length
 }
 
@@ -34,7 +33,6 @@ const Header = () => {
                 }
             })
             const body = await result.json()
-            console.log("school data:", body);
             const schoolId = body.data[0].id
             const allServices = body.data[0].services
             let allStudents = 0;

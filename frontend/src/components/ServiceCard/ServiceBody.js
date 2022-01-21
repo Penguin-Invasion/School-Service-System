@@ -21,6 +21,7 @@ const ServiceBody = (props) => {
                     :
                     <>
                     <td> {props.driver}</td>
+                    <td> {props.studentCount}</td>
                     </>
                 }
                 

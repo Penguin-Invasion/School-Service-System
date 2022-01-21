@@ -68,32 +68,30 @@ const ServiceCard = (props) => {
               <div>
               <Table className="align-items-center table-flush penguin-table-head" responsive>
                 <thead className="thead-light">
-                  <tr>
                     {// conditional rendering
                     props.dashboard ? 
                     <>
+                  <tr>
                         <th scope="col">Servis İsmi</th>
                         <th scope="col">Plakası</th>
                         <th scope="col">Saat</th>
                         <th scope="col">Gün</th>
+                  </tr>
                     </> : 
                     <>
+                    <tr>
                         <th scope="col">Servis İsmi</th>
                         <th scope="col">Plakası</th>
                         <th scope="col">Sürücü</th>
+                        <th scope="col">Öğrenci Sayisi</th>
+                        </tr>
                         {/* <th scope="col">Saat</th>
                         <th scope="col">Gün</th> */}
                     </>
                     
                     }
-                  </tr>
                 </thead>
-                </Table>
-              </div>
-              
-              <div>
-                    <Table responsive>
-                        <ServiceBodyContainer showEntries={props.dashboard}/>
+                <ServiceBodyContainer showEntries={props.dashboard}/>
                 </Table>
               </div>
             </Card>

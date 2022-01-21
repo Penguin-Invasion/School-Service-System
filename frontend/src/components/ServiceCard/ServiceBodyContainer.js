@@ -63,6 +63,7 @@ const ServiceBodyContainer = (props) => {
                 const driverName = data.driver.name + ' ' + data.driver.surName
                 const schoolId = body.data[0].id
                 allServices[i].driverName = driverName
+                allServices[i].studentCount = data.students.length
                 allServices[i].schoolId = schoolId
                 
                 const entries = data.entries
@@ -142,6 +143,7 @@ const ServiceBodyContainer = (props) => {
                         name={service.name}
                         plaque={service.plaque}
                         driver={service.driverName}
+                        studentCount={service.studentCount}
                         schoolId={service.schoolId}
 
                         showEntries={props.showEntries}
