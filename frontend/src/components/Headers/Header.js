@@ -12,7 +12,12 @@ const getStudentCount = async (schoolId, serviceId, token) => {
     })
 
     const body = await result.json()
-    return body.data.students.length
+
+    if (body && body.data && body.data.students && body.data.students.length > 0)
+        return body.data.students.length
+    
+    return 0;
+
 }
 
 
