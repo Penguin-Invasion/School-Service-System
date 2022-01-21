@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react'
 
 import useToken from '../../useToken'
 
+const refreshSec = 60 // refresh every 60 seconds
+
 const getEntries = async (schoolId, serviceId, token) => {
     const result = await fetch('https://schoolservicesystem.azurewebsites.net/api/School/' + schoolId + '/Service/' + serviceId, {
         method: 'GET',
@@ -123,7 +125,7 @@ const ServiceBodyContainer = (props) => {
     useEffect(() => {
         const interval = setInterval(() => {
             refresh()
-        }, 10000);
+        }, refreshSec * 1000);
         return () => clearInterval(interval);
     }, [])
 
