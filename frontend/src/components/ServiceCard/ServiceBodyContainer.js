@@ -18,6 +18,8 @@ const getEntries = async (schoolId, serviceId, token) => {
     return body.data
 }
 
+
+
 const ServiceBodyContainer = (props) => {
     const [serviceBody, setServiceBody] = useState([])
     const [serviceEntries, setServiceEntries] = useState([])

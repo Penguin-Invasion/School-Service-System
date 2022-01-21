@@ -1,10 +1,16 @@
 import React from 'react'
 
+import { Button } from "reactstrap";
+
+const showId = (id) => {
+    console.log(id)
+}
+
 const ServiceBody = (props) => {
     return (
         <tbody>
                 <tr>
-                <th >{props.name}</th>
+                <th onClick={() => showId(props.id)} > <Button>{props.name}</Button> </th>
                 <td> {props.plaque} </td>
                 {
                     props.showEntries ?
