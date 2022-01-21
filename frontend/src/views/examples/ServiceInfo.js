@@ -1,8 +1,40 @@
 import Header from "components/Headers/Header.js";
 
 import { Card, CardBody, Button, Col, Container, CardHeader, Row, Table } from 'reactstrap';
-// className="order-xl-1" xl="8"
+
+import { useState, useEffect } from "react";
+
+import useToken from '../../useToken'
+
+const getSchool = async (token)  => {
+    const response = await fetch('https://schoolservicesystem.azurewebsites.net/api/School', {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + token,
+            'Content-Type': 'application/json'
+        }
+    })
+
+    const body = await response.json();
+
+    if (body.success) {
+        console.log(body)
+    }
+
+}
+
+
 const ServiceInfo = () => {
+
+    const [ serviceName, setServiceName ] = useState('');
+    const [ servicePlaque, setServicePlaque ] = useState('');
+    const [ driverName, setDriverName] = useState('');
+    const [ students, setStudents ] = useState([]);
+    const { token } = useToken();
+
+    getSchool(token);
+
+
     return (
         <>
         <Header />
