@@ -126,7 +126,15 @@ const ServiceInfo = (props) => {
             })
         })
 
+        // clear form
+        setStudentName('');
+        setStudentSurname('');
+        setStudentYear('');
+
         const body = await result.json()
+
+        // add student to students array
+        setStudents([...students, body.data])
 
     }
 
@@ -141,7 +149,10 @@ const ServiceInfo = (props) => {
         })
 
         const body = await result.json()
-        window.location.reload(false);
+        
+        // remove student from students array
+        const newStudents = students.filter(student => student.id !== studentId)
+        setStudents(newStudents)
     }
 
 
@@ -266,7 +277,7 @@ const ServiceInfo = (props) => {
         
         </Row>
     </CardHeader>
-    <Table className="table-content-color-student" borderless>
+    <Table className="table-content-color-student" borderless responsive>
         <thead>
             <tr>
             <th>Öğrenci İsmi</th>
