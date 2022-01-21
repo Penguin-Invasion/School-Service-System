@@ -10,7 +10,7 @@ const ServiceBody = (props) => {
     return (
         <tbody>
                 <tr>
-                <th> <Link to={`/admin/service-info/${props.id}`}> <Button> {props.name} </Button> </Link> </th>
+                <th> <Link to={`/admin/service-info/${props.schoolId}/${props.id}`}> <Button> {props.name} </Button> </Link> </th>
                 <td> {props.plaque} </td>
                 {
                     props.showEntries ?

@@ -60,7 +60,10 @@ const ServiceBodyContainer = (props) => {
                 const plaque = allServices[i].plaque
                 const data = await getEntries(body.data[0].id, allServices[i].id, token)
                 const driverName = data.driver.name + ' ' + data.driver.surName
+                const schoolId = body.data[0].id
                 allServices[i].driverName = driverName
+                allServices[i].schoolId = schoolId
+                
                 const entries = data.entries
 
                 for (let j = 0; j < entries.length; j++) {
@@ -68,6 +71,7 @@ const ServiceBodyContainer = (props) => {
                         id: entries[j].id,
                         name: name,
                         plaque: plaque,
+                        schoolId: schoolId,
                         time: entries[j].time,
                         date: entries[j].date,
                     })
@@ -119,6 +123,7 @@ const ServiceBodyContainer = (props) => {
                         plaque={service.plaque}
                         time={service.time}
                         date={service.date}
+                        schoolId={service.schoolId}
 
                         showEntries={props.showEntries}
                     />
@@ -135,6 +140,7 @@ const ServiceBodyContainer = (props) => {
                         name={service.name}
                         plaque={service.plaque}
                         driver={service.driverName}
+                        schoolId={service.schoolId}
 
                         showEntries={props.showEntries}
                     />
