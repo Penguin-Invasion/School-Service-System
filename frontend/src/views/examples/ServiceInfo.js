@@ -6,33 +6,64 @@ import { useState, useEffect } from "react";
 
 import useToken from '../../useToken'
 
-const getSchool = async (token)  => {
-    const response = await fetch('https://schoolservicesystem.azurewebsites.net/api/School', {
+const a = async (schoolId, serviceId, token)  => {
+    const result = await fetch('https://schoolservicesystem.azurewebsites.net/api/School/' + schoolId + '/Service/' + serviceId, {
         method: 'GET',
         headers: {
-            'Authorization': 'Bearer ' + token,
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
         }
     })
 
-    const body = await response.json();
+    const body = await result.json()
+
+    console.log("log?")
 
     if (body.success) {
-        console.log(body)
+        console.log("body??????", body);
+        setServiceName(body.data.name);
+        setServicePlaque(body.data.plaque);
+        setDriverName(body.data.driver.name + ' ' + body.data.driver.surName);
+        setStudents(body.data.students);
     }
 
 }
 
 
-const ServiceInfo = () => {
-
+const ServiceInfo = (props) => {
     const [ serviceName, setServiceName ] = useState('');
     const [ servicePlaque, setServicePlaque ] = useState('');
     const [ driverName, setDriverName] = useState('');
     const [ students, setStudents ] = useState([]);
     const { token } = useToken();
 
-    getSchool(token);
+    const schoolId = props.match.params.schoolId;
+    const serviceId = props.match.params.id;
+
+
+    const getService = async ()  => {
+        const result = await fetch('https://schoolservicesystem.azurewebsites.net/api/School/' + schoolId + '/Service/' + serviceId, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            }
+        })
+    
+        const body = await result.json()
+    
+        if (body.success) {
+            setServiceName(body.data.name);
+            setServicePlaque(body.data.plaque);
+            setDriverName(body.data.driver.name + ' ' + body.data.driver.surName);
+            setStudents(body.data.students);
+        }
+    
+    }
+
+    useEffect(() => {
+        getService();
+    }, [])
 
 
     return (
@@ -58,15 +89,15 @@ const ServiceInfo = () => {
         <div className="table-service-info">
         <div>
             <h3 className="mb-0 very-light-color">Servis Adı:</h3>
-            <p>Servis Adı</p>
+            <p>{serviceName}</p>
         </div>
         <div>
             <h3 className="mb-0 very-light-color">Servis Plakası:</h3>
-            <p>Servis Adresi</p>
+            <p> {servicePlaque} </p>
         </div>
         <div>
             <h3 className="mb-0 very-light-color">Sürücü İsmi:</h3>
-            <p>Servis Adresi</p>
+            <p> {driverName} </p>
         </div>
         
 

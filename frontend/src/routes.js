@@ -65,7 +65,7 @@ var routes = [
     layout: "/admin",
   },
   {
-    path: "/service-info",
+    path: "/service-info/:schoolId/:id",
     show: false,
     name: "Service Info",
     icon: "ni ni-key-25 text-info",
