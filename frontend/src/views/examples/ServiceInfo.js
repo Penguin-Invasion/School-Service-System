@@ -262,7 +262,7 @@ const ServiceInfo = (props) => {
                         <FormGroup>
                         <Label for="studentYear">Öğrenci Giriş Yılı</Label>
                             <Input
-                                type="email"
+                                type="text"
                                 name="email"
                                 id="email"
                                 placeholder="Giriş Yılı"
