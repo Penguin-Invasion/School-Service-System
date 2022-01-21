@@ -137,12 +137,18 @@ const ServiceInfo = (props) => {
             </tr>
         </thead>
         <tbody>
-            <tr>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td><Button color="danger" size="sm">Sil</Button></td>
-            </tr>
+            
+            {students.map( (student, index) => {
+                return (
+                    <tr key={index}>
+                    <td>{student.name}</td>
+                    <td>{student.surName}</td>
+                    <td>{student.year}</td>
+                    <td><Button color="danger" size="sm">Sil</Button></td>
+                    </tr>
+                )
+            })}
+            
         </tbody>
     </Table>
     
