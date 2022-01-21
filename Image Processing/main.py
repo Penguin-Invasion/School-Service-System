@@ -57,12 +57,6 @@ def createWindow():
     textCompany.place(x=40,y=375)
     window.iconphoto(True,icon)
 
-def getImageFromCamera():
-    img_resp = requests.get(url)
-    img_arr = np.array(bytearray(img_resp.content), dtype=np.uint8)
-    img = cv2.imdecode(img_arr, -1)
-    return imutils.resize(img, width=620, height=480)
-
 def showPlateInfo(plate):
     global textPlate
     msg = "Detected plate: " + plate
@@ -114,11 +108,11 @@ times = []
 plateList = [times,plates]
 icon = PhotoImage(file='icon.png')
 textPlate = Label(window)
+vid = cv2.VideoCapture(1)
 window.overrideredirect()
 createWindow()
-with open("IpCameraUrl.txt","r") as file : url = file.read()
 while True:
-    img = getImageFromCamera()
+    img = imutils.resize(vid.read()[1], width=480, height=270)
     gray = applyFilters(img)
     contours = detectContours(gray)
     screenCnt = detectPlate(contours)
