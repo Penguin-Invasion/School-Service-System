@@ -82,7 +82,8 @@ async function createService(service, token) {
             },
         body: JSON.stringify(service)
     })
-    //const body  = await response.json();
+    const body  = await response.json();
+    return body;
     //console.log("add service response:", body);
     
 }
@@ -95,6 +96,7 @@ const Profile = () => {
     const [driverLastName, setDriverLastName] = useState('');
     const [plaque, setPlaque] = useState('');
     const [serviceName, setServiceName] = useState('');
+    const [ added, setAdded ] = useState(0);
 
 
     function handleSubmit(event) {
@@ -113,7 +115,21 @@ const Profile = () => {
         if (plaque) credentials.plaque = plaque;
         if (serviceName) credentials.serviceName = serviceName;
 
-        getSchool(credentials, token);
+        const response = getSchool(credentials, token);
+
+        // clear the form
+        setDriverName('');
+        setDriverLastName('');
+        setPlaque('');
+        setServiceName('');
+
+        if (response.success)
+            setAdded(1);
+        else
+            setAdded(-1);
+    
+        
+
     }
 
 
@@ -190,7 +206,7 @@ const Profile = () => {
                             <Input
                                 className="form-control-alternative"
                                 id="input-email"
-                                placeholder="34ABC25"
+                                placeholder="Şahin"
                                 type="text"
                                 id="email"
                                 value={serviceName}
@@ -225,9 +241,13 @@ const Profile = () => {
 
                     <div>
                         
+                    <Row>
                     <Button type="submit" className="add-service">
-                        Gönder
+                        Ekle
                     </Button>
+                    </Row>
+                    {added === 1 && <p>Sürücü ve Servis eklendi</p>}
+                    {added === -1 && <p>Sürücü ve Servis eklenemedi</p>}
                     </div>
 
                 </form>

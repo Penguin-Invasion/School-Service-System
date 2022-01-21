@@ -141,6 +141,7 @@ const ServiceInfo = (props) => {
         })
 
         const body = await result.json()
+        window.location.reload(false);
     }
 
 

@@ -18,12 +18,17 @@ import {
 
   import useToken from '../../useToken'
 
+function timeout(delay) {
+    return new Promise( res => setTimeout(res, delay) );
+}
+
   const Profile = () => {
 
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [lastName, setLastName] = useState('');
+    const [ editStatus, setEditStatus ] = useState(0);
 
     const { token } = useToken();
 
@@ -43,12 +48,32 @@ import {
         if (email) credentials.email = email;
         if (password) credentials.password = password;
 
-        console.log('credentials:', credentials);
-      editProf(credentials);
+        editProf(credentials);
+
+
+        // if all values are empty
+        if (name === '' && lastName === '' && email === '' && password === '') {
+            setEditStatus(-1);
+        } else {
+            setEditStatus(1);
+            // set timeout
+            console.log("reload?")
+
+        }
+        
+        // clear the form
+        setName('');
+        setLastName('');
+        setEmail('');
+        setPassword('');
+
+        
+
+
     }
 
     async function editProf(credentials) {
-        return fetch('https://schoolservicesystem.azurewebsites.net/api/Profile', {
+        const response = await fetch('https://schoolservicesystem.azurewebsites.net/api/Profile', {
           method: 'PATCH',
           headers: {
             // set token
@@ -57,9 +82,20 @@ import {
             },
           body: JSON.stringify(credentials)
         })
-          .then(data => data.json())
+        
+        const body  = await response.json();
+        return body;
     }
 
+    const  refresh = async () => {
+
+        console.log("ref inside:", editStatus);
+        if (editStatus === 1 || editStatus === 0) {
+
+            await new Promise(resolve => setTimeout(resolve, 1100));
+            window.location.reload(false);
+        }
+    }
 
 
 
@@ -171,9 +207,11 @@ import {
 
                     <div>
                        
-                    <Button type="submit" className="add-service">
+                    <Button onClick={refresh} type="submit" className="add-service">
                         Gönder
                     </Button>
+                    {editStatus === 1 && <p>Güncelleme Başarılı</p>}
+                    {editStatus === -1 && <p>Güncelleme Başarısız</p>}
                     </div>
 
                 </form>
