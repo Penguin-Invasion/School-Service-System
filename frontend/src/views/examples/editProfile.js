@@ -34,10 +34,10 @@ function timeout(delay) {
 
     function handleSubmit(event) {
       //event.preventDefault();
-      console.log('name:', name);
-      console.log('lastName:', lastName);
-      console.log('email:', email);
-      console.log('password:', password);
+    //   console.log('name:', name);
+    //   console.log('lastName:', lastName);
+    //   console.log('email:', email);
+    //   console.log('password:', password);
 
       // create a credentials object
     const credentials = {}

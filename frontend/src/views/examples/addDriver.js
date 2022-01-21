@@ -83,6 +83,7 @@ async function createService(service, token) {
         body: JSON.stringify(service)
     })
     const body  = await response.json();
+
     return body;
     //console.log("add service response:", body);
     
@@ -115,19 +116,20 @@ const Profile = () => {
         if (plaque) credentials.plaque = plaque;
         if (serviceName) credentials.serviceName = serviceName;
 
-        const response = getSchool(credentials, token);
-
         // clear the form
         setDriverName('');
         setDriverLastName('');
         setPlaque('');
         setServiceName('');
 
-        if (response.success)
+        // if credentials are not empty
+        if (credentials.name && credentials.surName && credentials.plaque && credentials.serviceName) {
+            getSchool(credentials, token);
             setAdded(1);
-        else
+        }
+        else {
             setAdded(-1);
-    
+        }
         
 
     }
