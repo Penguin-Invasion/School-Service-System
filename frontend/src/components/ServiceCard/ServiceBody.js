@@ -14,6 +14,7 @@ const ServiceBody = (props) => {
                     </>
                     :
                     <>
+                    <td> {props.driver}</td>
                     </>
                 }
                 

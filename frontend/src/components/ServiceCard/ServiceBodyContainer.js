@@ -15,7 +15,7 @@ const getEntries = async (schoolId, serviceId, token) => {
 
     const body = await result.json()
     //console.log("body? ", body)
-    return body.data.entries
+    return body.data
 }
 
 const ServiceBodyContainer = (props) => {
@@ -56,7 +56,10 @@ const ServiceBodyContainer = (props) => {
             for (let i = 0; i < allServices.length; i++) {
                 const name = allServices[i].name
                 const plaque = allServices[i].plaque
-                const entries = await getEntries(body.data[0].id, allServices[i].id, token)
+                const data = await getEntries(body.data[0].id, allServices[i].id, token)
+                const driverName = data.driver.name + ' ' + data.driver.surName
+                allServices[i].driverName = driverName
+                const entries = data.entries
 
                 for (let j = 0; j < entries.length; j++) {
                     serviceEntries.push({
@@ -129,6 +132,7 @@ const ServiceBodyContainer = (props) => {
                         id={service.id}
                         name={service.name}
                         plaque={service.plaque}
+                        driver={service.driverName}
 
                         showEntries={props.showEntries}
                     />

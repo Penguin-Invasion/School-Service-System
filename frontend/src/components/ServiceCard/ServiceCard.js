@@ -80,6 +80,7 @@ const ServiceCard = (props) => {
                     <>
                         <th scope="col">Servis İsmi</th>
                         <th scope="col">Plakası</th>
+                        <th scope="col">Sürücü</th>
                         {/* <th scope="col">Saat</th>
                         <th scope="col">Gün</th> */}
                     </>
