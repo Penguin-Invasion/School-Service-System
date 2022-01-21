@@ -72,7 +72,7 @@ const UserHeader = () => {
                     to="/admin/add-driver"
                 >
                 <Button className="add-driver" >
-                    Sürücü Ekle
+                    Sürücü ve Servis Ekle
                 </Button>
                 </Link>
                 <Link
@@ -80,9 +80,6 @@ const UserHeader = () => {
                     //onClick={(e) => e.preventDefault()}
                     to="/admin/add-service"
                 >
-                <Button className="add-service">
-                    Servis Ekle
-                </Button>
                 </Link>
               </div>
             </Col>

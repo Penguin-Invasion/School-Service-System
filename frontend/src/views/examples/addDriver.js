@@ -17,11 +17,11 @@ import {
   import { useState, useEffect } from "react";
 
   const Profile = () => {
-    const [user, setUser] = useState([]);
-    const [services, setServices] = useState([]);
-    const [service, setService] = useState([]);
-
     const [driverName, setDriverName] = useState('');
+    const [driverLastName, setDriverLastName] = useState('');
+    const [plaque, setPlaque] = useState('');
+
+
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
@@ -60,45 +60,97 @@ import {
         <Container className="mt--7  " fluid>
           <Row>
             <Col className="order-xl-1" xl="8">
+            <CardHeader className="bg-white border-0">
+                  <Row className="align-items-center">
+                    <Col xs="8">
+                      <h3 className="mb-0">Sürücü ve Servis Ekle</h3>
+                    </Col>
+                    
+                  </Row>
+                </CardHeader>
               <Card className="bg-secondary shadow">
-                <form >
-
-
-                    <div className="mb-3" >
-                        <label htmlFor="driverName">Surucu Adi</label>
-                        <input
-                        className="form-control"
-                        id="driverName"
-                        type="text"
-                        value={driverName}
-                        onChange={(e) => setDriverName(e.target.value)}
-                        />
+                <CardBody>
+                <form onSubmit={handleSubmit}>
+                <h6 className="heading-small text-muted mb-4">
+                Bu ekrandan, yeni sürücü ve plakasını ekleyebilirsiniz.
+                </h6>
+                <div className="pl-lg-4">
+                      <Row>
+                        <Col lg="6">
+                          <FormGroup>
+                            <label
+                              className="form-control-label"
+                              htmlFor="input-username"
+                            >
+                                Sürücü Adı
+                            </label>
+                            <Input
+                              className="form-control-alternative"
+                              id="name"
+                              placeholder="Ad"
+                            type="text"
+                            value={driverName}
+                            onChange={(e) => setDriverName(e.target.value)}
+                            />
+                          </FormGroup>
+                        </Col>
+                        <Col lg="6">
+                        <FormGroup>
+                            <label
+                              className="form-control-label"
+                              htmlFor="input-last-name"
+                            >
+                              Sürücü Soyadı
+                            </label>
+                            <Input
+                              className="form-control-alternative"
+                              
+                              placeholder="Soyad"
+                              id="lastName"
+                            type="text"
+                            value={driverLastName}
+                            onChange={(e) => setDriverLastName(e.target.value)}
+                            />
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col lg="6">
+                        <FormGroup>
+                            <label
+                              className="form-control-label"
+                              htmlFor="input-email"
+                            >
+                              Plaka
+                            </label>
+                            <Input
+                              className="form-control-alternative"
+                              id="input-email"
+                              placeholder="34ABC25"
+                              type="text"
+                              id="email"
+                                value={plaque}
+                                onChange={(e) => setPlaque(e.target.value)}
+                              
+                            />
+                          </FormGroup>
+                        </Col>
+                        <Col lg="6">
+                          
+                        </Col>
+                      </Row>
                     </div>
 
-                    <div className="mb-3" >
-                        <label htmlFor="name">Servis Plakasi</label>
-                        <input
-                        className="form-control"
-                        id="name"
-                        type="text"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        />
-                    </div>
-                    <div className="mb-3" >
-                        <label htmlFor="message">Message</label>
-                        <textarea
-                        className="form-control"
-                        id="message"
-                        value={message}
-                        onChange={(e) => setMessage(e.target.value)}
-                        />
-                    </div>
+
                     <div>
-                        <button type="submit" onClick={handleSubmit}   >Submit</button>
+                       
+                    <Button type="submit" className="add-service">
+                        Gönder
+                    </Button>
                     </div>
 
                 </form>
+                </CardBody>
               </Card>
             </Col>
           </Row>
