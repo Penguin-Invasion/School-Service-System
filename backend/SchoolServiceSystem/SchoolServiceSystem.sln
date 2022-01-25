@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31729.503
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolServiceSystem", "SchoolServiceSystem\SchoolServiceSystem.csproj", "{7655C21D-7EC5-4847-9EE6-EA37DEE5F951}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolServiceSystem", "SchoolServiceSystem\SchoolServiceSystem.csproj", "{7655C21D-7EC5-4847-9EE6-EA37DEE5F951}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolServiceSystem.Test", "SchoolServiceSystem.Test\SchoolServiceSystem.Test.csproj", "{4181B6D3-14A8-4A91-810E-00721BD9F46F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{7655C21D-7EC5-4847-9EE6-EA37DEE5F951}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7655C21D-7EC5-4847-9EE6-EA37DEE5F951}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7655C21D-7EC5-4847-9EE6-EA37DEE5F951}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4181B6D3-14A8-4A91-810E-00721BD9F46F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4181B6D3-14A8-4A91-810E-00721BD9F46F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4181B6D3-14A8-4A91-810E-00721BD9F46F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4181B6D3-14A8-4A91-810E-00721BD9F46F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

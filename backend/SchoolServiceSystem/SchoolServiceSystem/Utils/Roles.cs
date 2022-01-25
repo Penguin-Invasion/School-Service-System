@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace SchoolServiceSystem.Utils
 {
-    public enum Role
+    public enum Roles
     {
-        Admin,
-        Manager,
-        Driver
+        Admin = 0,
+        Manager = 1,
+        Driver = 2
     }
 }

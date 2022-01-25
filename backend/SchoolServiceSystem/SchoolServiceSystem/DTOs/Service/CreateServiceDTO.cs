@@ -7,8 +7,9 @@ namespace SchoolServiceSystem.DTOs.Service
 {
     public class CreateServiceDTO
     {
-        public int BusID { get; set; }
+        public string Name { get; set; }
+        public string Plaque { get; set; }
         public int SchoolID { get; set; }
-        public List<int> Students { get; set; }
+        public int DriverID { get; set; }
     }
 }
